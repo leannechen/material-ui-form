@@ -1,5 +1,7 @@
 import React, { Fragment, useState } from 'react';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
+import { makeStyles } from '@material-ui/core/styles';
 import { Container, CssBaseline, Typography, Paper, Box, Button, TextField, Dialog, DialogContent, IconButton } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import AddIcon from '@material-ui/icons/Add';
@@ -52,6 +54,10 @@ const useStyles = makeStyles((theme) => ({
   },
   dialogSaveButton: {
     fontSize: `1rem`,
+  },
+  datePicker: {
+    marginBottom: theme.spacing(2),
+    marginRight: theme.spacing(2),
   }
 }));
 
@@ -59,6 +65,7 @@ function App() {
   const classes = useStyles();
   const [ isEditing, setIsEditing ] = useState(true);
   const [ isShowModal, setIsShowModal ] = useState(false);
+  const [ testDate, setTestDate ] = useState(null);
 
   const handleClickStartEdit = () => {
     setIsEditing(isEditing => !isEditing);
@@ -95,7 +102,7 @@ function App() {
   );
 
   return (
-    <Fragment>
+    <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <CssBaseline/>
       <Container maxWidth="md">
         <Box marginTop={5}>
@@ -195,6 +202,34 @@ function App() {
             helperText={``}
             onChange={() => {}}
           />
+          <KeyboardDatePicker
+            className={classes.datePicker}
+            // disableToolbar
+            autoOk={true}
+            variant="inline"
+            format="MM/dd/yyyy"
+            views={["year", "month", "date"]}
+            label="Start Date"
+            value={testDate}
+            onChange={(date) => { console.log(date); setTestDate(date); }}
+            KeyboardButtonProps={{
+              'aria-label': 'Change start date of the job',
+            }}
+          />
+          <KeyboardDatePicker
+            className={classes.datePicker}
+            // disableToolbar
+            autoOk={true}
+            variant="inline"
+            format="MM/dd/yyyy"
+            views={["year", "month", "date"]}
+            label="End Date"
+            value={null}
+            onChange={() => {}}
+            KeyboardButtonProps={{
+              'aria-label': 'Change end date of the job',
+            }}
+          />
           <TextField
             label="Job Description"
             className={classes.textField}
@@ -217,7 +252,7 @@ function App() {
           Save
         </Button>
       </Dialog>
-    </Fragment>
+    </MuiPickersUtilsProvider>
   )
 }
 
