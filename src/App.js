@@ -2,9 +2,26 @@ import React, { useState } from 'react';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { makeStyles } from '@material-ui/core/styles';
-import { Container, CssBaseline, Typography, Paper, Box, Button, TextField, Dialog, DialogContent, IconButton, FormControlLabel, Checkbox } from '@material-ui/core';
+import {
+  Container,
+  CssBaseline,
+  Typography,
+  Paper,
+  Box,
+  Button,
+  TextField,
+  Dialog,
+  DialogContent,
+  IconButton,
+  FormControlLabel,
+  Checkbox,
+  Card,
+  CardContent,
+  CardMedia,
+} from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import AddIcon from '@material-ui/icons/Add';
+import AttachFileIcon from '@material-ui/icons/AttachFile';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -63,8 +80,32 @@ const useStyles = makeStyles((theme) => ({
   dialogFormContainer: {
     width: `80%`,
     margin: `auto`,
-  }
+  },
+  card: {
+    marginBottom: theme.spacing(1),
+  },
 }));
+
+const mockData = [
+  {
+    jobTitle: "Project Manager",
+    company: "Google",
+    companyLogo: "",
+    startDate: "2016/3/1",
+    endDate: "2019/5/26",
+    isCurrentJob: false,
+    jobDescription: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias amet architecto at dolor ea iste nam quo similique vitae voluptas? Eum ipsam obcaecati perferendis porro provident quam, velit voluptate voluptatibus."
+  },
+  {
+    jobTitle: "Data Analyst",
+    company: "Verizon Media",
+    companyLogo: "",
+    startDate: "2019/6/1",
+    endDate: "",
+    isCurrentJob: true,
+    jobDescription: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias amet architecto at dolor ea iste nam quo similique vitae voluptas? Eum ipsam obcaecati perferendis porro provident quam, velit voluptate voluptatibus perferendis porro provident quam, velit voluptate voluptatibus."
+  }
+];
 
 function App() {
   const classes = useStyles();
@@ -118,7 +159,7 @@ function App() {
         </Box>
         <Box paddingY={5} paddingX={4} clone>
           <Paper className={classes.paper}>
-            { isEditing?
+            { isEditing &&
               <form className={classes.formContainer}>
                 <fieldset className={classes.fieldset}>
                   <Typography variant="h5" component="h3" gutterBottom>
@@ -148,24 +189,48 @@ function App() {
                   <Typography variant="h5" component="h3" gutterBottom>
                     Work Experience
                   </Typography>
-                  <div className={classes.addWorkContainer}>
-                    <Typography variant="body1" gutterBottom>
-                      You don't have any experience yet.
-                    </Typography>
-                    <Button
-                      variant="contained"
-                      color="secondary"
-                      startIcon={<AddIcon />}
-                      onClick={handleOpenModal}
-                    >
-                      Add
-                    </Button>
-                  </div>
+                  { mockData.length === 0 ?
+                    <div className={classes.addWorkContainer}>
+                      <Typography variant="body1" gutterBottom>
+                        You don't have any experience yet.
+                      </Typography>
+                      <Button
+                        variant="contained"
+                        color="secondary"
+                        startIcon={<AddIcon />}
+                        onClick={handleOpenModal}
+                      >
+                        Add
+                      </Button>
+                    </div>
+                    :
+                    mockData.map(mockItem => (
+                      <Card key={mockItem.company} className={classes.card}>
+                        <div className={classes.cardDetails}>
+                          <CardContent className={classes.cardContent}>
+                            <Typography component="h5" variant="h5">
+                              {mockItem.jobTitle}, {mockItem.company}
+                            </Typography>
+                            <Typography variant="subtitle1" color="textSecondary">
+                              {mockItem.startDate} ~ {mockItem.isCurrentJob? `Present`: mockItem.endDate}
+                            </Typography>
+                          </CardContent>
+                          <div className={classes.cardControls}>
+                            {/* buttons here */}
+                          </div>
+                        </div>
+                        <CardMedia
+                          className={classes.cover}
+                          image="/static/images/cards/live-from-space.jpg"
+                          title="Live from space album cover"
+                        />
+                      </Card>
+                    ))
+                  }
                 </fieldset>
               </form>
-              :
-              renderWelcomeContent()
             }
+            { !isEditing && renderWelcomeContent() }
           </Paper>
         </Box>
       </Container>
@@ -205,6 +270,19 @@ function App() {
               helperText={``}
               onChange={() => {}}
             />
+            <div>
+              <Typography gutterBottom>
+                Company Logo
+              </Typography>
+              <Button
+                variant="contained"
+                color="secondary"
+                startIcon={<AttachFileIcon />}
+                onClick={handleOpenModal}
+              >
+                Upload
+              </Button>
+            </div>
             <KeyboardDatePicker
               className={classes.datePicker}
               // disableToolbar
@@ -262,6 +340,7 @@ function App() {
           size="large"
           className={classes.dialogSaveButton}
           onClick={() => {}}
+          disabled={true}
         >
           Save
         </Button>
