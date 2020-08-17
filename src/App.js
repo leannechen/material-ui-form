@@ -49,8 +49,9 @@ const useStyles = makeStyles((theme) => ({
   },
   dialogHeader: {
     display: `flex`,
-    justifyContent: `space-between`,
-    alignItems: `baseline`,
+  },
+  dialogCloseButton: {
+    marginLeft: `auto`,
   },
   dialogSaveButton: {
     fontSize: `1rem`,
@@ -177,9 +178,6 @@ function App() {
       >
         <DialogContent dividers className={classes.dialogContent}>
           <div className={classes.dialogHeader}>
-            <Typography variant="h4" id="dialog-title" gutterBottom>
-              Work Experience
-            </Typography>
             <IconButton
               aria-label="close"
               className={classes.dialogCloseButton}
