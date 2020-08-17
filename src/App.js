@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Container, CssBaseline, Typography, Paper, Box, Button, TextField } from '@material-ui/core';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { Container, CssBaseline, Typography, Paper, Box, Button, TextField, Dialog, DialogContent, IconButton } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
 import AddIcon from '@material-ui/icons/Add';
 
 const useStyles = makeStyles((theme) => ({
@@ -31,12 +32,33 @@ const useStyles = makeStyles((theme) => ({
     display: `flex`,
     justifyContent: `space-between`,
     alignItems: `baseline`,
+  },
+  dialog: {
+    [theme.breakpoints.up('sm')]: {
+      // minWidth: `500px`,
+      // backgroundColor: `gold`,
+    },
+  },
+  dialogContent: {
+    paddingTop: theme.spacing(5),
+    paddingBottom: theme.spacing(5),
+    paddingLeft: theme.spacing(4),
+    paddingRight: theme.spacing(4),
+  },
+  dialogHeader: {
+    display: `flex`,
+    justifyContent: `space-between`,
+    alignItems: `baseline`,
+  },
+  dialogSaveButton: {
+    fontSize: `1rem`,
   }
 }));
 
 function App() {
   const classes = useStyles();
   const [ isEditing, setIsEditing ] = useState(true);
+  const [ isShowModal, setIsShowModal ] = useState(false);
 
   const handleClickStartEdit = () => {
     setIsEditing(isEditing => !isEditing);
@@ -45,6 +67,15 @@ function App() {
   const handleInputChange = (fieldName) => (e) => {
     console.log(fieldName);
     console.log(e.target.value)
+  };
+
+  const handleOpenModal = () => {
+    setIsShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsShowModal(false);
+    // todo: clear modal data
   };
 
   const renderWelcomeContent = () => (
@@ -104,7 +135,6 @@ function App() {
                   <Typography variant="h5" component="h3" gutterBottom>
                     Work Experience
                   </Typography>
-
                   <div className={classes.addWorkContainer}>
                     <Typography variant="body1" gutterBottom>
                       You don't have any experience yet.
@@ -113,6 +143,7 @@ function App() {
                       variant="contained"
                       color="secondary"
                       startIcon={<AddIcon />}
+                      onClick={handleOpenModal}
                     >
                       Add
                     </Button>
@@ -125,6 +156,67 @@ function App() {
           </Paper>
         </Box>
       </Container>
+      <Dialog
+        maxWidth="sm"
+        fullWidth={true}
+        className={classes.dialog}
+        open={isShowModal}
+        onClose={handleCloseModal}
+        aria-labelledby="dialog-title"
+      >
+        <DialogContent dividers className={classes.dialogContent}>
+          <div className={classes.dialogHeader}>
+            <Typography variant="h4" id="dialog-title" gutterBottom>
+              Work Experience
+            </Typography>
+            <IconButton
+              aria-label="close"
+              className={classes.dialogCloseButton}
+              onClick={handleCloseModal}
+            >
+              <CloseIcon />
+            </IconButton>
+          </div>
+          <TextField
+            label="Job Title"
+            className={classes.textField}
+            required
+            fullWidth
+            error={false}
+            helperText={``}
+            onChange={() => {}}
+          />
+          <TextField
+            label="Company"
+            className={classes.textField}
+            required
+            fullWidth
+            error={false}
+            helperText={``}
+            onChange={() => {}}
+          />
+          <TextField
+            label="Job Description"
+            className={classes.textField}
+            multiline
+            rows={4}
+            variant="outlined"
+            required
+            fullWidth
+            error={false}
+            placeholder="Describe your works"
+            onChange={() => {}}
+          />
+        </DialogContent>
+        <Button
+          color="primary"
+          size="large"
+          className={classes.dialogSaveButton}
+          onClick={() => {}}
+        >
+          Save
+        </Button>
+      </Dialog>
     </Fragment>
   )
 }
