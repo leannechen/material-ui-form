@@ -1,8 +1,8 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { makeStyles } from '@material-ui/core/styles';
-import { Container, CssBaseline, Typography, Paper, Box, Button, TextField, Dialog, DialogContent, IconButton } from '@material-ui/core';
+import { Container, CssBaseline, Typography, Paper, Box, Button, TextField, Dialog, DialogContent, IconButton, FormControlLabel, Checkbox } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import AddIcon from '@material-ui/icons/Add';
 
@@ -58,6 +58,10 @@ const useStyles = makeStyles((theme) => ({
   datePicker: {
     marginBottom: theme.spacing(2),
     marginRight: theme.spacing(2),
+  },
+  dialogFormContainer: {
+    width: `80%`,
+    margin: `auto`,
   }
 }));
 
@@ -66,6 +70,7 @@ function App() {
   const [ isEditing, setIsEditing ] = useState(true);
   const [ isShowModal, setIsShowModal ] = useState(false);
   const [ testDate, setTestDate ] = useState(null);
+  const [ isCurrentWork, setIsCurrentWork ] = useState(false);
 
   const handleClickStartEdit = () => {
     setIsEditing(isEditing => !isEditing);
@@ -165,7 +170,6 @@ function App() {
       </Container>
       <Dialog
         maxWidth="sm"
-        fullWidth={true}
         className={classes.dialog}
         open={isShowModal}
         onClose={handleCloseModal}
@@ -184,64 +188,76 @@ function App() {
               <CloseIcon />
             </IconButton>
           </div>
-          <TextField
-            label="Job Title"
-            className={classes.textField}
-            required
-            fullWidth
-            error={false}
-            helperText={``}
-            onChange={() => {}}
-          />
-          <TextField
-            label="Company"
-            className={classes.textField}
-            required
-            fullWidth
-            error={false}
-            helperText={``}
-            onChange={() => {}}
-          />
-          <KeyboardDatePicker
-            className={classes.datePicker}
-            // disableToolbar
-            autoOk={true}
-            variant="inline"
-            format="MM/dd/yyyy"
-            views={["year", "month", "date"]}
-            label="Start Date"
-            value={testDate}
-            onChange={(date) => { console.log(date); setTestDate(date); }}
-            KeyboardButtonProps={{
-              'aria-label': 'Change start date of the job',
-            }}
-          />
-          <KeyboardDatePicker
-            className={classes.datePicker}
-            // disableToolbar
-            autoOk={true}
-            variant="inline"
-            format="MM/dd/yyyy"
-            views={["year", "month", "date"]}
-            label="End Date"
-            value={null}
-            onChange={() => {}}
-            KeyboardButtonProps={{
-              'aria-label': 'Change end date of the job',
-            }}
-          />
-          <TextField
-            label="Job Description"
-            className={classes.textField}
-            multiline
-            rows={4}
-            variant="outlined"
-            required
-            fullWidth
-            error={false}
-            placeholder="Describe your works"
-            onChange={() => {}}
-          />
+          <div className={classes.dialogFormContainer}>
+            <TextField
+              label="Job Title"
+              className={classes.textField}
+              required
+              fullWidth
+              error={false}
+              helperText={``}
+              onChange={() => {}}
+            />
+            <TextField
+              label="Company"
+              className={classes.textField}
+              required
+              fullWidth
+              error={false}
+              helperText={``}
+              onChange={() => {}}
+            />
+            <KeyboardDatePicker
+              className={classes.datePicker}
+              // disableToolbar
+              autoOk={true}
+              variant="inline"
+              format="MM/dd/yyyy"
+              views={["year", "month", "date"]}
+              label="Start Date"
+              value={testDate}
+              onChange={(date) => { console.log(date); setTestDate(date); }}
+              KeyboardButtonProps={{
+                'aria-label': 'Change start date of the job',
+              }}
+            />
+            <KeyboardDatePicker
+              className={classes.datePicker}
+              autoOk={true}
+              variant="inline"
+              format="MM/dd/yyyy"
+              views={["year", "month", "date"]}
+              label="End Date"
+              value={null}
+              onChange={() => {}}
+              KeyboardButtonProps={{
+                'aria-label': 'Change end date of the job',
+              }}
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={isCurrentWork}
+                  onChange={(e) => { setIsCurrentWork(e.target.checked) }}
+                  name="isCurrentWork"
+                  color="primary"
+                />
+              }
+              label="I am currently working in this role"
+            />
+            <TextField
+              label="Job Description"
+              className={classes.textField}
+              multiline
+              rows={4}
+              variant="outlined"
+              required
+              fullWidth
+              error={false}
+              placeholder="Describe your works"
+              onChange={() => {}}
+            />
+          </div>
         </DialogContent>
         <Button
           color="primary"
