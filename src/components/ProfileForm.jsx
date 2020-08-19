@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Typography,
@@ -9,6 +9,7 @@ import {
 import AddIcon from "@material-ui/icons/Add";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
+import JobDialog from "./JobDialog";
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -61,16 +62,20 @@ const useStyles = makeStyles((theme) => ({
 
 function ProfileForm(props) {
   const classes = useStyles();
-  const { onOpenModal } = props;
-  const { personalForm, jobList } = props;
+  const { personalForm, jobList, jobForm } = props;
+  const [ isShowDialog, setIsShowDialog ] = useState(false);
 
   const handleInputChange = (fieldName) => (e) => {
     console.log(fieldName);
     console.log(e.target.value)
   };
 
-  const handleOpenModal = () => {
-    onOpenModal();
+  const handleOpenDialog = () => {
+    setIsShowDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setIsShowDialog(false);
   };
 
   return (
@@ -112,7 +117,7 @@ function ProfileForm(props) {
                 variant="contained"
                 color="secondary"
                 startIcon={<AddIcon />}
-                onClick={handleOpenModal}
+                onClick={handleOpenDialog}
               >
                 Add
               </Button>
@@ -184,6 +189,12 @@ function ProfileForm(props) {
           </div>
         </fieldset>
       </form>
+      <JobDialog
+        isShowDialog={isShowDialog}
+        jobForm={jobForm}
+        onOpenDialog={handleOpenDialog}
+        onCloseDialog={handleCloseDialog}
+      />
     </div>
   )
 }

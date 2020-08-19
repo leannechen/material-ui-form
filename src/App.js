@@ -34,35 +34,6 @@ const useStyles = makeStyles((theme) => ({
   welcomeContent: {
     textAlign: `center`,
   },
-  dialog: {
-    [theme.breakpoints.up('sm')]: {
-      // minWidth: `500px`,
-      // backgroundColor: `gold`,
-    },
-  },
-  dialogContent: {
-    paddingTop: theme.spacing(5),
-    paddingBottom: theme.spacing(5),
-    paddingLeft: theme.spacing(4),
-    paddingRight: theme.spacing(4),
-  },
-  dialogHeader: {
-    display: `flex`,
-  },
-  dialogCloseButton: {
-    marginLeft: `auto`,
-  },
-  dialogSaveButton: {
-    fontSize: `1rem`,
-  },
-  datePicker: {
-    marginBottom: theme.spacing(2),
-    marginRight: theme.spacing(2),
-  },
-  dialogFormContainer: {
-    width: `80%`,
-    margin: `auto`,
-  },
 }));
 
 const mockData = {
@@ -95,7 +66,6 @@ function App(props) {
   console.log(props);
   const classes = useStyles();
   const [ isEditing, setIsEditing ] = useState(false);
-  const [ isShowModal, setIsShowModal ] = useState(false);
   const [ testDate, setTestDate ] = useState(null);
   const [ isCurrentWork, setIsCurrentWork ] = useState(false);
   const { store } = props;
@@ -104,15 +74,6 @@ function App(props) {
 
   const handleClickStartEdit = () => {
     setIsEditing(isEditing => !isEditing);
-  };
-
-  const handleOpenModal = () => {
-    setIsShowModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsShowModal(false);
-    // todo: clear modal data
   };
 
   const renderWelcomeContent = () => (
@@ -158,123 +119,13 @@ function App(props) {
               <ProfileForm
                 personalForm={personalForm}
                 jobList={jobList}
-                onOpenModal={handleOpenModal}
+                jobForm={jobForm}
               />
             }
           </Paper>
         </Box>
       </Container>
-      <Dialog
-        maxWidth="sm"
-        className={classes.dialog}
-        open={isShowModal}
-        onClose={handleCloseModal}
-        aria-labelledby="dialog-title"
-      >
-        <DialogContent dividers className={classes.dialogContent}>
-          <div className={classes.dialogHeader}>
-            <IconButton
-              aria-label="close"
-              className={classes.dialogCloseButton}
-              onClick={handleCloseModal}
-            >
-              <CloseIcon />
-            </IconButton>
-          </div>
-          <div className={classes.dialogFormContainer}>
-            <TextField
-              label="Job Title"
-              className={classes.textField}
-              required
-              fullWidth
-              error={false}
-              helperText={``}
-              onChange={() => {}}
-            />
-            <TextField
-              label="Company"
-              className={classes.textField}
-              required
-              fullWidth
-              error={false}
-              helperText={``}
-              onChange={() => {}}
-            />
-            <div>
-              <Typography gutterBottom>
-                Company Logo
-              </Typography>
-              <Button
-                variant="contained"
-                color="secondary"
-                startIcon={<AttachFileIcon />}
-                onClick={handleOpenModal}
-              >
-                Upload
-              </Button>
-            </div>
-            <KeyboardDatePicker
-              className={classes.datePicker}
-              // disableToolbar
-              autoOk={true}
-              variant="inline"
-              format="MM/dd/yyyy"
-              views={["year", "month", "date"]}
-              label="Start Date"
-              value={testDate}
-              onChange={(date) => { console.log(date); setTestDate(date); }}
-              KeyboardButtonProps={{
-                'aria-label': 'Change start date of the job',
-              }}
-            />
-            <KeyboardDatePicker
-              className={classes.datePicker}
-              autoOk={true}
-              variant="inline"
-              format="MM/dd/yyyy"
-              views={["year", "month", "date"]}
-              label="End Date"
-              value={null}
-              onChange={() => {}}
-              KeyboardButtonProps={{
-                'aria-label': 'Change end date of the job',
-              }}
-            />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={isCurrentWork}
-                  onChange={(e) => { setIsCurrentWork(e.target.checked) }}
-                  name="isCurrentWork"
-                  color="primary"
-                />
-              }
-              label="I am currently working in this role"
-            />
-            <TextField
-              label="Job Description"
-              className={classes.textField}
-              multiline
-              rows={4}
-              variant="outlined"
-              required
-              fullWidth
-              error={false}
-              placeholder="Describe your works"
-              onChange={() => {}}
-            />
-          </div>
-        </DialogContent>
-        <Button
-          color="primary"
-          size="large"
-          className={classes.dialogSaveButton}
-          onClick={() => {}}
-          disabled={true}
-        >
-          Save
-        </Button>
-      </Dialog>
+    {/*  todo: dialog here */}
     </MuiPickersUtilsProvider>
   )
 }
@@ -294,4 +145,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(App)
-

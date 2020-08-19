@@ -40,13 +40,19 @@ const initialState = {
       touched: false,
     },
     startDate: {
-      value: "",
+      value: null,
       validateReg: "",
       invalidMsg: "",
       touched: false,
     },
     endDate: {
-      value: "",
+      value: null,
+      validateReg: "",
+      invalidMsg: "",
+      touched: false,
+    },
+    isCurrent: {
+      value: false,
       validateReg: "",
       invalidMsg: "",
       touched: false,
