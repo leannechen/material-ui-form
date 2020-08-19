@@ -20,6 +20,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import ProfileView from './components/ProfileView';
 import ProfileForm from './components/ProfileForm';
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -90,7 +91,8 @@ const mockData = {
   ]
 };
 
-function App() {
+function App(props) {
+  console.log(props);
   const classes = useStyles();
   const [ isEditing, setIsEditing ] = useState(false);
   const [ isShowModal, setIsShowModal ] = useState(false);
@@ -273,4 +275,18 @@ function App() {
   )
 }
 
-export default App;
+const mapStateToProps = state => ({
+  // todos: getVisibleTodos(state.todos, state.visibilityFilter),
+  name: state.name,
+  age: state.age,
+});
+
+const mapDispatchToProps = dispatch => ({
+  // toggleTodo: id => dispatch(toggleTodo(id))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App)
+
