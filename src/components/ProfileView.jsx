@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: `center`,
     marginBottom: theme.spacing(1),
     padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
+    borderLeft: `3px solid ${theme.palette.primary.main}`,
   },
   cardContent: {
     flex: 3,

@@ -15,17 +15,11 @@ import {
   IconButton,
   FormControlLabel,
   Checkbox,
-  Card,
-  CardContent,
-  CardMedia,
-  CardActions,
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-import AddIcon from '@material-ui/icons/Add';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
 import ProfileView from './components/ProfileView';
+import ProfileForm from './components/ProfileForm';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,18 +32,6 @@ const useStyles = makeStyles((theme) => ({
   },
   welcomeContent: {
     textAlign: `center`,
-  },
-  formContainer: {
-    margin: `auto`,
-    width: `60%`,
-  },
-  textField: {
-    marginBottom: theme.spacing(2),
-  },
-  fieldset: {
-    border: `none`,
-    padding: 0,
-    marginBottom: theme.spacing(4),
   },
   dialog: {
     [theme.breakpoints.up('sm')]: {
@@ -80,10 +62,6 @@ const useStyles = makeStyles((theme) => ({
     width: `80%`,
     margin: `auto`,
   },
-  addBtnContainer: {
-    textAlign: `right`,
-    marginBottom: theme.spacing(1),
-  },
 }));
 
 const mockData = {
@@ -94,7 +72,7 @@ const mockData = {
     {
       jobTitle: "Project Manager",
       company: "Google",
-      companyLogo: "",
+      companyLogo: "https://source.unsplash.com/random/400x300",
       startDate: "2016/3/1",
       endDate: "2019/5/26",
       isCurrentJob: false,
@@ -103,7 +81,7 @@ const mockData = {
     {
       jobTitle: "Data Analyst",
       company: "Verizon Media",
-      companyLogo: "",
+      companyLogo: "https://source.unsplash.com/random/400x300",
       startDate: "2019/6/1",
       endDate: "",
       isCurrentJob: true,
@@ -114,18 +92,13 @@ const mockData = {
 
 function App() {
   const classes = useStyles();
-  const [ isEditing, setIsEditing ] = useState(true);
+  const [ isEditing, setIsEditing ] = useState(false);
   const [ isShowModal, setIsShowModal ] = useState(false);
   const [ testDate, setTestDate ] = useState(null);
   const [ isCurrentWork, setIsCurrentWork ] = useState(false);
 
   const handleClickStartEdit = () => {
     setIsEditing(isEditing => !isEditing);
-  };
-
-  const handleInputChange = (fieldName) => (e) => {
-    console.log(fieldName);
-    console.log(e.target.value)
   };
 
   const handleOpenModal = () => {
@@ -164,79 +137,17 @@ function App() {
         </Box>
         <Box paddingY={5} paddingX={4} clone>
           <Paper className={classes.paper}>
-            { isEditing &&
-              <form className={classes.formContainer}>
-                <fieldset className={classes.fieldset}>
-                  <Typography variant="h5" component="h3" gutterBottom>
-                    Personal Information
-                  </Typography>
-                  <TextField
-                    id="standard-basic"
-                    label="Name"
-                    value={mockData.name}
-                    className={classes.textField}
-                    required
-                    fullWidth
-                    error={false}
-                    helperText={``}
-                    onChange={handleInputChange("name")}
-                  />
-                  <TextField
-                    id="standard-number"
-                    label="Age"
-                    value={mockData.age}
-                    className={classes.textField}
-                    required
-                    fullWidth
-                    error={false}
-                    onChange={handleInputChange("age")}
-                  />
-                </fieldset>
-                <fieldset className={classes.fieldset}>
-                  <Typography variant="h5" component="h3" gutterBottom>
-                    Work Experience
-                  </Typography>
-                  <div>
-                    <div className={classes.addBtnContainer}>
-                      <Button
-                        variant="contained"
-                        color="secondary"
-                        startIcon={<AddIcon />}
-                        onClick={handleOpenModal}
-                      >
-                        Add
-                      </Button>
-                    </div>
-                    { mockData.jobList.length === 0 ?
-                      <Typography variant="body1" gutterBottom>
-                        You don't have any experience yet.
-                      </Typography>
-                      :
-                      mockData.jobList.map(mockItem => (
-                        <Card key={mockItem.company} className={classes.card}>
-                          <CardContent className={classes.cardContent}>
-                            <Typography component="h5" variant="h5">
-                              {mockItem.jobTitle}, {mockItem.company}
-                            </Typography>
-                            <Typography variant="subtitle1" color="textSecondary">
-                              {mockItem.startDate} ~ {mockItem.isCurrentJob? `Present`: mockItem.endDate}
-                            </Typography>
-                            <Typography variant="body1">
-                              {mockItem.jobDescription}
-                            </Typography>
-                          </CardContent>
-                          <CardMedia
-                            className={classes.cardImg}
-                            image="https://source.unsplash.com/random/300x200"
-                            title="Live from space album cover"
-                          />
-                        </Card>
-                      ))
-                    }
-                    <ProfileView {...mockData} />
-                  </div>
-                </fieldset>
-              </form>
+            {/* fordev */}
+            <button onClick={() => { setIsEditing(isEditing => !isEditing); }}>Toggle</button>
+            { isEditing ?
+              <ProfileForm
+                {...mockData}
+                onOpenModal={handleOpenModal}
+              />
+              :
+              <ProfileView
+                {...mockData}
+              />
             }
             { !isEditing && renderWelcomeContent() }
           </Paper>
