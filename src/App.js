@@ -18,10 +18,13 @@ import {
   Card,
   CardContent,
   CardMedia,
+  CardActions,
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import AddIcon from '@material-ui/icons/Add';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,11 +49,6 @@ const useStyles = makeStyles((theme) => ({
     border: `none`,
     padding: 0,
     marginBottom: theme.spacing(4),
-  },
-  addWorkContainer: {
-    display: `flex`,
-    justifyContent: `space-between`,
-    alignItems: `baseline`,
   },
   dialog: {
     [theme.breakpoints.up('sm')]: {
@@ -81,9 +79,24 @@ const useStyles = makeStyles((theme) => ({
     width: `80%`,
     margin: `auto`,
   },
-  card: {
+  addBtnContainer: {
+    textAlign: `right`,
     marginBottom: theme.spacing(1),
   },
+  card: {
+    display: `flex`,
+    alignItems: `center`,
+    marginBottom: theme.spacing(1),
+    padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
+  },
+  cardContent: {
+    flex: 3,
+  },
+  cardImg: {
+    flex: 1,
+    width: `150px`,
+    height: `150px`,
+  }
 }));
 
 const mockData = [
@@ -94,7 +107,7 @@ const mockData = [
     startDate: "2016/3/1",
     endDate: "2019/5/26",
     isCurrentJob: false,
-    jobDescription: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias amet architecto at dolor ea iste nam quo similique vitae voluptas? Eum ipsam obcaecati perferendis porro provident quam, velit voluptate voluptatibus."
+    jobDescription: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum ipsam obcaecati perferendis porro provident quam, velit voluptate voluptatibus."
   },
   {
     jobTitle: "Data Analyst",
@@ -189,11 +202,8 @@ function App() {
                   <Typography variant="h5" component="h3" gutterBottom>
                     Work Experience
                   </Typography>
-                  { mockData.length === 0 ?
-                    <div className={classes.addWorkContainer}>
-                      <Typography variant="body1" gutterBottom>
-                        You don't have any experience yet.
-                      </Typography>
+                  <div>
+                    <div className={classes.addBtnContainer}>
                       <Button
                         variant="contained"
                         color="secondary"
@@ -203,10 +213,13 @@ function App() {
                         Add
                       </Button>
                     </div>
-                    :
-                    mockData.map(mockItem => (
-                      <Card key={mockItem.company} className={classes.card}>
-                        <div className={classes.cardDetails}>
+                    { mockData.length === 0 ?
+                      <Typography variant="body1" gutterBottom>
+                        You don't have any experience yet.
+                      </Typography>
+                      :
+                      mockData.map(mockItem => (
+                        <Card key={mockItem.company} className={classes.card}>
                           <CardContent className={classes.cardContent}>
                             <Typography component="h5" variant="h5">
                               {mockItem.jobTitle}, {mockItem.company}
@@ -214,19 +227,19 @@ function App() {
                             <Typography variant="subtitle1" color="textSecondary">
                               {mockItem.startDate} ~ {mockItem.isCurrentJob? `Present`: mockItem.endDate}
                             </Typography>
+                            <Typography variant="body1">
+                              {mockItem.jobDescription}
+                            </Typography>
                           </CardContent>
-                          <div className={classes.cardControls}>
-                            {/* buttons here */}
-                          </div>
-                        </div>
-                        <CardMedia
-                          className={classes.cover}
-                          image="/static/images/cards/live-from-space.jpg"
-                          title="Live from space album cover"
-                        />
-                      </Card>
-                    ))
-                  }
+                          <CardMedia
+                            className={classes.cardImg}
+                            image="https://source.unsplash.com/random/300x200"
+                            title="Live from space album cover"
+                          />
+                        </Card>
+                      ))
+                    }
+                  </div>
                 </fieldset>
               </form>
             }
