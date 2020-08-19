@@ -139,17 +139,22 @@ function App() {
           <Paper className={classes.paper}>
             {/* fordev */}
             <button onClick={() => { setIsEditing(isEditing => !isEditing); }}>Toggle</button>
-            { isEditing ?
+            {/* todo: 判斷是否有profile */}
+            { (!isEditing && mockData.name.length === 0) &&
+              renderWelcomeContent()
+            }
+            { (!isEditing && mockData.name.length > 0) &&
+              <ProfileView
+                {...mockData}
+                onClickStartEdit={handleClickStartEdit}
+              />
+            }
+            { isEditing &&
               <ProfileForm
                 {...mockData}
                 onOpenModal={handleOpenModal}
               />
-              :
-              <ProfileView
-                {...mockData}
-              />
             }
-            { !isEditing && renderWelcomeContent() }
           </Paper>
         </Box>
       </Container>
