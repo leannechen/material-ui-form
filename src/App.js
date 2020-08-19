@@ -277,8 +277,9 @@ function App(props) {
 
 const mapStateToProps = state => ({
   // todos: getVisibleTodos(state.todos, state.visibilityFilter),
-  name: state.name,
-  age: state.age,
+  // name: state.name,
+  // age: state.age,
+  store: state,
 });
 
 const mapDispatchToProps = dispatch => ({
