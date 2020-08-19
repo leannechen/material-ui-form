@@ -61,7 +61,8 @@ const useStyles = makeStyles((theme) => ({
 
 function ProfileForm(props) {
   const classes = useStyles();
-  const { name, age, jobList, onOpenModal } = props;
+  const { onOpenModal } = props;
+  const { personalForm, jobList } = props;
 
   const handleInputChange = (fieldName) => (e) => {
     console.log(fieldName);
@@ -82,22 +83,22 @@ function ProfileForm(props) {
           <TextField
             id="standard-basic"
             label="Name"
-            value={name}
+            value={personalForm.name.value}
             className={classes.textField}
             required
             fullWidth
-            error={false}
-            helperText={``}
+            error={!!personalForm.name.invalidMsg}
+            helperText={personalForm.name.invalidMsg}
             onChange={handleInputChange("name")}
           />
           <TextField
             id="standard-number"
             label="Age"
-            value={age}
+            value={personalForm.age.value}
             className={classes.textField}
             required
             fullWidth
-            error={false}
+            error={!!personalForm.age.invalidMsg}
             onChange={handleInputChange("age")}
           />
         </fieldset>
@@ -121,40 +122,40 @@ function ProfileForm(props) {
                 You don't have any experience yet.
               </Typography>
               :
-              jobList.map(mockItem => (
-                <Card key={mockItem.company} className={classes.card}>
+              jobList.map(job => (
+                <Card key={job.company} className={classes.card}>
                   <CardContent>
                     <table>
                       <tbody>
                         <tr>
                           <th className={classes.jobTh}>Job Title</th>
-                          <td className={classes.jobTd}>{mockItem.jobTitle}</td>
+                          <td className={classes.jobTd}>{job.jobTitle}</td>
                         </tr>
                         <tr>
                           <th className={classes.jobTh}>Company</th>
-                          <td className={classes.jobTd}>{mockItem.company}</td>
+                          <td className={classes.jobTd}>{job.company}</td>
                         </tr>
                         <tr>
                           <th className={classes.jobTh}>Company Logo</th>
-                          <td className={classes.jobTd}>{mockItem.companyLogo}
+                          <td className={classes.jobTd}>{job.companyLogo}
                             <CardMedia
                               className={classes.cardImg}
                               image="https://source.unsplash.com/random/400x300"
-                              title={mockItem.company}
+                              title={job.company}
                             />
                           </td>
                         </tr>
                         <tr>
                           <th className={classes.jobTh}>Start Date</th>
-                          <td className={classes.jobTd}>{mockItem.startDate}</td>
+                          <td className={classes.jobTd}>{job.startDate}</td>
                         </tr>
                         <tr>
                           <th className={classes.jobTh}>End Date</th>
-                          <td className={classes.jobTd}>{mockItem.isCurrentJob? "N/A (Present)": mockItem.endDate}</td>
+                          <td className={classes.jobTd}>{job.isCurrentJob? "N/A (Present)": job.endDate}</td>
                         </tr>
                         <tr>
                           <th className={classes.jobTh}>Job Description</th>
-                          <td className={classes.jobTd}>{mockItem.jobDescription}</td>
+                          <td className={classes.jobTd}>{job.jobDescription}</td>
                         </tr>
                       </tbody>
                     </table>

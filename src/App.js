@@ -98,6 +98,9 @@ function App(props) {
   const [ isShowModal, setIsShowModal ] = useState(false);
   const [ testDate, setTestDate ] = useState(null);
   const [ isCurrentWork, setIsCurrentWork ] = useState(false);
+  const { store } = props;
+  const { personalForm, jobForm, jobList } = store;
+  const { name } = personalForm;
 
   const handleClickStartEdit = () => {
     setIsEditing(isEditing => !isEditing);
@@ -142,10 +145,10 @@ function App(props) {
             {/* fordev */}
             <button onClick={() => { setIsEditing(isEditing => !isEditing); }}>Toggle</button>
             {/* todo: 判斷是否有profile */}
-            { (!isEditing && mockData.name.length === 0) &&
+            { (!isEditing && !name.value) &&
               renderWelcomeContent()
             }
-            { (!isEditing && mockData.name.length > 0) &&
+            { (!isEditing && !!name.value) &&
               <ProfileView
                 {...mockData}
                 onClickStartEdit={handleClickStartEdit}
@@ -153,7 +156,8 @@ function App(props) {
             }
             { isEditing &&
               <ProfileForm
-                {...mockData}
+                personalForm={personalForm}
+                jobList={jobList}
                 onOpenModal={handleOpenModal}
               />
             }
