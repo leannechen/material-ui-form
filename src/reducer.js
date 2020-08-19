@@ -1,7 +1,31 @@
 
 const initialState = {
-  name: "aa",
-  age: 0,
+  fieldList: ["name", "age", "avatarImg"], //
+  name: {
+    value: "",
+    validateReg: "",
+    invalidMsg: "", // error hint. if not empty, then it has error
+    touched: false,
+  },
+  age: {
+    value: 0,
+    validateReg: "",
+    invalidMsg: "",
+    touched: false,
+  },
+  avatarImg: {
+    value: "",
+    validateReg: "",
+    invalidMsg: "",
+    touched: false,
+  },
+  job: {
+    value: "",
+    validateReg: "",
+    invalidMsg: "",
+    touched: false,
+  },
+  jobList: [],
 };
 
 const reducer = (state = initialState, action) => {
