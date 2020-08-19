@@ -69,14 +69,16 @@ function ProfileView(props) {
       </Typography>
       <div className={classes.personalContainer}>
         <table>
-          <tr>
-            <th className={classes.personalTh}>Name</th>
-            <td className={classes.personalTd}>{name}</td>
-          </tr>
-          <tr>
-            <th className={classes.personalTh}>Age</th>
-            <td className={classes.personalTd}>{age}</td>
-          </tr>
+          <tbody>
+            <tr>
+              <th className={classes.personalTh}>Name</th>
+              <td className={classes.personalTd}>{name}</td>
+            </tr>
+            <tr>
+              <th className={classes.personalTh}>Age</th>
+              <td className={classes.personalTd}>{age}</td>
+            </tr>
+          </tbody>
         </table>
       </div>
 

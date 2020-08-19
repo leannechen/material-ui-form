@@ -125,36 +125,38 @@ function ProfileForm(props) {
                 <Card key={mockItem.company} className={classes.card}>
                   <CardContent>
                     <table>
-                      <tr>
-                        <th className={classes.jobTh}>Job Title</th>
-                        <td className={classes.jobTd}>{mockItem.jobTitle}</td>
-                      </tr>
-                      <tr>
-                        <th className={classes.jobTh}>Company</th>
-                        <td className={classes.jobTd}>{mockItem.company}</td>
-                      </tr>
-                      <tr>
-                        <th className={classes.jobTh}>Company Logo</th>
-                        <td className={classes.jobTd}>{mockItem.companyLogo}
-                          <CardMedia
-                            className={classes.cardImg}
-                            image="https://source.unsplash.com/random/400x300"
-                            title={mockItem.company}
-                          />
-                        </td>
-                      </tr>
-                      <tr>
-                        <th className={classes.jobTh}>Start Date</th>
-                        <td className={classes.jobTd}>{mockItem.startDate}</td>
-                      </tr>
-                      <tr>
-                        <th className={classes.jobTh}>End Date</th>
-                        <td className={classes.jobTd}>{mockItem.isCurrentJob? "N/A (Present)": mockItem.endDate}</td>
-                      </tr>
-                      <tr>
-                        <th className={classes.jobTh}>Job Description</th>
-                        <td className={classes.jobTd}>{mockItem.jobDescription}</td>
-                      </tr>
+                      <tbody>
+                        <tr>
+                          <th className={classes.jobTh}>Job Title</th>
+                          <td className={classes.jobTd}>{mockItem.jobTitle}</td>
+                        </tr>
+                        <tr>
+                          <th className={classes.jobTh}>Company</th>
+                          <td className={classes.jobTd}>{mockItem.company}</td>
+                        </tr>
+                        <tr>
+                          <th className={classes.jobTh}>Company Logo</th>
+                          <td className={classes.jobTd}>{mockItem.companyLogo}
+                            <CardMedia
+                              className={classes.cardImg}
+                              image="https://source.unsplash.com/random/400x300"
+                              title={mockItem.company}
+                            />
+                          </td>
+                        </tr>
+                        <tr>
+                          <th className={classes.jobTh}>Start Date</th>
+                          <td className={classes.jobTd}>{mockItem.startDate}</td>
+                        </tr>
+                        <tr>
+                          <th className={classes.jobTh}>End Date</th>
+                          <td className={classes.jobTd}>{mockItem.isCurrentJob? "N/A (Present)": mockItem.endDate}</td>
+                        </tr>
+                        <tr>
+                          <th className={classes.jobTh}>Job Description</th>
+                          <td className={classes.jobTd}>{mockItem.jobDescription}</td>
+                        </tr>
+                      </tbody>
                     </table>
                   </CardContent>
                   <CardActions className={classes.cardActions}>
