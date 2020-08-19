@@ -25,6 +25,7 @@ import AddIcon from '@material-ui/icons/Add';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import ProfileView from './components/ProfileView';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -83,42 +84,33 @@ const useStyles = makeStyles((theme) => ({
     textAlign: `right`,
     marginBottom: theme.spacing(1),
   },
-  card: {
-    display: `flex`,
-    alignItems: `center`,
-    marginBottom: theme.spacing(1),
-    padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
-  },
-  cardContent: {
-    flex: 3,
-  },
-  cardImg: {
-    flex: 1,
-    width: `150px`,
-    height: `150px`,
-  }
 }));
 
-const mockData = [
-  {
-    jobTitle: "Project Manager",
-    company: "Google",
-    companyLogo: "",
-    startDate: "2016/3/1",
-    endDate: "2019/5/26",
-    isCurrentJob: false,
-    jobDescription: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum ipsam obcaecati perferendis porro provident quam, velit voluptate voluptatibus."
-  },
-  {
-    jobTitle: "Data Analyst",
-    company: "Verizon Media",
-    companyLogo: "",
-    startDate: "2019/6/1",
-    endDate: "",
-    isCurrentJob: true,
-    jobDescription: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias amet architecto at dolor ea iste nam quo similique vitae voluptas? Eum ipsam obcaecati perferendis porro provident quam, velit voluptate voluptatibus perferendis porro provident quam, velit voluptate voluptatibus."
-  }
-];
+const mockData = {
+  name: "Jane Whites",
+  age: 28,
+  avatarImg: "https://source.unsplash.com/300x300/?person",
+  jobList: [
+    {
+      jobTitle: "Project Manager",
+      company: "Google",
+      companyLogo: "",
+      startDate: "2016/3/1",
+      endDate: "2019/5/26",
+      isCurrentJob: false,
+      jobDescription: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum ipsam obcaecati perferendis porro provident quam, velit voluptate voluptatibus."
+    },
+    {
+      jobTitle: "Data Analyst",
+      company: "Verizon Media",
+      companyLogo: "",
+      startDate: "2019/6/1",
+      endDate: "",
+      isCurrentJob: true,
+      jobDescription: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias amet architecto at dolor ea iste nam quo similique vitae voluptas? Eum ipsam obcaecati perferendis porro provident quam, velit voluptate voluptatibus perferendis porro provident quam, velit voluptate voluptatibus."
+    }
+  ]
+};
 
 function App() {
   const classes = useStyles();
@@ -181,6 +173,7 @@ function App() {
                   <TextField
                     id="standard-basic"
                     label="Name"
+                    value={mockData.name}
                     className={classes.textField}
                     required
                     fullWidth
@@ -191,6 +184,7 @@ function App() {
                   <TextField
                     id="standard-number"
                     label="Age"
+                    value={mockData.age}
                     className={classes.textField}
                     required
                     fullWidth
@@ -213,12 +207,12 @@ function App() {
                         Add
                       </Button>
                     </div>
-                    { mockData.length === 0 ?
+                    { mockData.jobList.length === 0 ?
                       <Typography variant="body1" gutterBottom>
                         You don't have any experience yet.
                       </Typography>
                       :
-                      mockData.map(mockItem => (
+                      mockData.jobList.map(mockItem => (
                         <Card key={mockItem.company} className={classes.card}>
                           <CardContent className={classes.cardContent}>
                             <Typography component="h5" variant="h5">
@@ -239,6 +233,7 @@ function App() {
                         </Card>
                       ))
                     }
+                    <ProfileView {...mockData} />
                   </div>
                 </fieldset>
               </form>
