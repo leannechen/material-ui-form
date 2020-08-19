@@ -5,15 +5,43 @@ import {
   Card,
   CardContent,
   CardMedia,
+  Avatar,
 } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
+  viewContainer: {
+    margin: `auto`,
+    width: `60%`,
+  },
+  avatar: {
+    width: `100px`,
+    height: `100px`,
+    margin: `auto auto ${theme.spacing(2)}px`,
+  },
+  heading: {
+    fontWeight: `bold`,
+  },
+  personalContainer: {
+    fontSize: `1rem`,
+    marginBottom: theme.spacing(2),
+  },
+  personalTh: {
+    textAlign: `left`,
+    width: `30%`,
+    padding: theme.spacing(1),
+    verticalAlign: `top`,
+  },
+  personalTd: {
+    padding: theme.spacing(1),
+    verticalAlign: `top`,
+  },
   card: {
     display: `flex`,
     alignItems: `center`,
     marginBottom: theme.spacing(1),
     padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
     borderLeft: `3px solid ${theme.palette.primary.main}`,
+    borderRadius: 0,
   },
   cardContent: {
     flex: 3,
@@ -27,17 +55,41 @@ const useStyles = makeStyles((theme) => ({
 
 function ProfileView(props) {
   const classes = useStyles();
-  const { jobList } = props;
+  const { name, age, avatarImg, jobList } = props;
+
   return (
-    <div>
-      <p>View Mode</p>
+    <div className={classes.viewContainer}>
+      <Avatar alt={name} src={avatarImg} className={classes.avatar} />
+      <Typography variant="h5" component="h3" className={classes.heading} gutterBottom>
+        Personal Information
+      </Typography>
+      <div className={classes.personalContainer}>
+        <table>
+          <tr>
+            <th className={classes.personalTh}>Name</th>
+            <td className={classes.personalTd}>{name}</td>
+          </tr>
+          <tr>
+            <th className={classes.personalTh}>Age</th>
+            <td className={classes.personalTd}>{age}</td>
+          </tr>
+        </table>
+      </div>
+
+      <Typography variant="h5" component="h3" className={classes.heading} gutterBottom>
+        Work Experience
+      </Typography>
       { jobList.length === 0 ?
         <Typography variant="body1" gutterBottom>
           You don't have any experience yet.
         </Typography>
         :
         jobList.map(mockItem => (
-          <Card key={mockItem.company} className={classes.card}>
+          <Card
+            key={mockItem.company}
+            variant="outlined"
+            className={classes.card}
+          >
             <CardContent className={classes.cardContent}>
               <Typography component="h5" variant="h5">
                 {mockItem.jobTitle}, {mockItem.company}
