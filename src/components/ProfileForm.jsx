@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
   heading: {
     fontWeight: `bold`,
+    marginBottom: theme.spacing(3),
   },
   textField: {
     marginBottom: theme.spacing(2),

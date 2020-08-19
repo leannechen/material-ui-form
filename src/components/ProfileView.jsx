@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
   personalContainer: {
     fontSize: `1rem`,
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(3),
   },
   personalTh: {
     textAlign: `left`,
@@ -42,6 +42,10 @@ const useStyles = makeStyles((theme) => ({
     padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
     borderLeft: `3px solid ${theme.palette.primary.main}`,
     borderRadius: 0,
+  },
+  cardTitle: {
+    fontWeight: `bold`,
+    fontSize: `1.3rem`,
   },
   cardContent: {
     flex: 3,
@@ -91,7 +95,7 @@ function ProfileView(props) {
             className={classes.card}
           >
             <CardContent className={classes.cardContent}>
-              <Typography component="h5" variant="h5">
+              <Typography component="h5" variant="h6" className={classes.cardTitle}>
                 {mockItem.jobTitle}, {mockItem.company}
               </Typography>
               <Typography variant="subtitle1" color="textSecondary">
