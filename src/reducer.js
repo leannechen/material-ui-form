@@ -2,7 +2,7 @@
 const initialState = {
   personalForm: {
     name: {
-      value: "",
+      value: "Justin",
       validateReg: "",
       invalidMsg: "", // error hint. if not empty, then it has error
       touched: false,
@@ -95,6 +95,28 @@ const reducer = (state = initialState, action) => {
           ? {...todo, completed: !todo.completed}
           : todo
       );
+    case 'CHANGE_PERSONAL_INPUT':
+      // const { type, payload } = action;
+      const { fieldName, value } = action;
+      console.log(action);
+      // todo:
+      // find target field object
+      // change value
+      // validate, change invalidMsg
+      // const allFieldNames = [ ...Object.keys(state.personalForm), ...Object.keys(state.jobForm) ];
+      // const field = state.personalForm[fieldName] || state.jobForm[fieldName];
+      const newField = {
+        ...state.personalForm[fieldName],
+        value,
+      };
+
+      return {
+        ...state,
+        personalForm: {
+          ...state.personalForm,
+          [fieldName]: newField,
+        }
+      };
     default:
       return state
   }

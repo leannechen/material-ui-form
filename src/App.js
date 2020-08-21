@@ -21,6 +21,7 @@ import AttachFileIcon from '@material-ui/icons/AttachFile';
 import ProfileView from './components/ProfileView';
 import ProfileForm from './components/ProfileForm';
 import { connect } from 'react-redux';
+import { changePersonalInput } from './actions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -66,7 +67,7 @@ function App(props) {
   console.log(props);
   const classes = useStyles();
   const [ isEditing, setIsEditing ] = useState(false);
-  const { store } = props;
+  const { store, changePersonalInput } = props;
   const { personalForm, jobForm, jobList } = store;
 
   const handleClickStartEdit = () => {
@@ -117,6 +118,7 @@ function App(props) {
                 personalForm={personalForm}
                 jobList={jobList}
                 jobForm={jobForm}
+                changePersonalInput={changePersonalInput}
               />
             }
           </Paper>
@@ -134,7 +136,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  // toggleTodo: id => dispatch(toggleTodo(id))
+  // toggleTodo: id => dispatch(toggleTodo(id)),
+  changePersonalInput: ({ fieldName, value }) => dispatch(changePersonalInput({ fieldName, value }))
 });
 
 export default connect(
