@@ -1,14 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
+import logger from 'redux-logger';
 import { Provider } from 'react-redux';
+import rootReducer from './reducer'
 import './index.css';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'fontsource-roboto';
-import rootReducer from './reducer'
+import App from './App';
 
-const store = createStore(rootReducer);
+const store = createStore(
+  rootReducer,
+  applyMiddleware(logger)
+);
 
 ReactDOM.render(
   <Provider store={store}>
