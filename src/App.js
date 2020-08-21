@@ -66,11 +66,8 @@ function App(props) {
   console.log(props);
   const classes = useStyles();
   const [ isEditing, setIsEditing ] = useState(false);
-  const [ testDate, setTestDate ] = useState(null);
-  const [ isCurrentWork, setIsCurrentWork ] = useState(false);
   const { store } = props;
   const { personalForm, jobForm, jobList } = store;
-  const { name } = personalForm;
 
   const handleClickStartEdit = () => {
     setIsEditing(isEditing => !isEditing);
@@ -106,10 +103,10 @@ function App(props) {
             {/* fordev */}
             <button onClick={() => { setIsEditing(isEditing => !isEditing); }}>Toggle</button>
             {/* todo: 判斷是否有profile */}
-            { (!isEditing && !name.value) &&
+            { (!isEditing && !personalForm.name.value) &&
               renderWelcomeContent()
             }
-            { (!isEditing && !!name.value) &&
+            { (!isEditing && !!personalForm.name.value) &&
               <ProfileView
                 {...mockData}
                 onClickStartEdit={handleClickStartEdit}
@@ -125,7 +122,6 @@ function App(props) {
           </Paper>
         </Box>
       </Container>
-    {/*  todo: dialog here */}
     </MuiPickersUtilsProvider>
   )
 }

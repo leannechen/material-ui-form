@@ -134,7 +134,7 @@ function JobDialog(props) {
               <Checkbox
                 checked={jobForm.isCurrent.value}
                 onChange={(e) => { console.log(e.target.checked) }}
-                name="isCurrentWork"
+                name="isCurrent"
                 color="primary"
               />
             }
