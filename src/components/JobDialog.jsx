@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
 function JobDialog(props) {
 
   const classes = useStyles();
-  const { isShowDialog, onCloseDialog, onOpenDialog, jobForm, onInputChange } = props;
+  const { isShowDialog, onCloseDialog, onOpenDialog, jobForm, onInputChange, onDatePickerChange } = props;
 
   return (
     <Dialog
@@ -120,11 +120,11 @@ function JobDialog(props) {
             className={classes.datePicker}
             autoOk={true}
             variant="inline"
-            format="MM/dd/yyyy"
+            format="yyyy/MM/dd"
             views={["year", "month", "date"]}
             label="Start Date"
             value={jobForm.startDate.value}
-            onChange={(date) => { console.log(date); }}
+            onChange={onDatePickerChange("startDate")}
             KeyboardButtonProps={{
               'aria-label': 'Change start date of the job',
             }}
@@ -133,11 +133,11 @@ function JobDialog(props) {
             className={classes.datePicker}
             autoOk={true}
             variant="inline"
-            format="MM/dd/yyyy"
+            format="yyyy/MM/dd"
             views={["year", "month", "date"]}
             label="End Date"
             value={jobForm.endDate.value}
-            onChange={(date) => { console.log(date); }}
+            onChange={onDatePickerChange("endDate")}
             KeyboardButtonProps={{
               'aria-label': 'Change end date of the job',
             }}

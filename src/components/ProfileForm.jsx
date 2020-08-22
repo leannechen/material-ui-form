@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
 
 function ProfileForm(props) {
   const classes = useStyles();
-  const { personalForm, jobList, jobForm, changeInputValue } = props;
+  const { personalForm, jobList, jobForm, changeInputValue, changeDatePickerValue } = props;
   const [ isShowDialog, setIsShowDialog ] = useState(false);
 
   const handleInputChange = (fieldName, formName) => (e) => {
@@ -71,6 +71,15 @@ function ProfileForm(props) {
       fieldName,
       value: e.target.value
     });
+  };
+
+  const handleDatePickerChange = fieldName => value => {
+    console.log(fieldName)
+    console.log(value)
+    changeDatePickerValue({
+      fieldName,
+      value,
+    })
   };
 
   const handleOpenDialog = () => {
@@ -199,6 +208,7 @@ function ProfileForm(props) {
         isShowDialog={isShowDialog}
         jobForm={jobForm}
         onInputChange={handleInputChange}
+        onDatePickerChange={handleDatePickerChange}
         onOpenDialog={handleOpenDialog}
         onCloseDialog={handleCloseDialog}
       />

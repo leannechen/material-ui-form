@@ -137,7 +137,7 @@ const reducer = (state = initialState, action) => {
           : todo
       );
     case 'CHANGE_INPUT_VALUE':
-
+    {
       const { formName = "personalForm", fieldName, value } = action;
 
       if(!state[formName] || !state[formName][fieldName]) {
@@ -161,6 +161,22 @@ const reducer = (state = initialState, action) => {
           },
         }
       };
+    }
+    case 'CHANGE_DATE_PICKER_VALUE':
+    {
+      const { value, fieldName } = action;
+
+      return {
+        ...state,
+        jobForm: {
+          ...state.jobForm,
+          [fieldName]: {
+            ...state.jobForm[fieldName],
+            value,
+          }
+        }
+      };
+    }
     default:
       return state
   }

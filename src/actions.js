@@ -5,3 +5,8 @@ export const changeInputValue = ({ formName, fieldName, value }) => ({
   fieldName,
   value,
 });
+
+export const changeDatePickerValue = (payload) => ({
+  ...payload,
+  type: 'CHANGE_DATE_PICKER_VALUE',
+});

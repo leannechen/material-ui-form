@@ -13,7 +13,7 @@ import {
 import ProfileView from './components/ProfileView';
 import ProfileForm from './components/ProfileForm';
 import { connect } from 'react-redux';
-import { changeInputValue } from './actions';
+import { changeInputValue, changeDatePickerValue } from './actions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -59,7 +59,7 @@ function App(props) {
   console.log(props);
   const classes = useStyles();
   const [ isEditing, setIsEditing ] = useState(false);
-  const { store, changeInputValue } = props;
+  const { store, changeInputValue, changeDatePickerValue } = props;
   const { personalForm, jobForm, jobList } = store;
 
   const handleClickStartEdit = () => {
@@ -111,6 +111,7 @@ function App(props) {
                 jobList={jobList}
                 jobForm={jobForm}
                 changeInputValue={changeInputValue}
+                changeDatePickerValue={changeDatePickerValue}
               />
             }
           </Paper>
@@ -129,7 +130,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   // toggleTodo: id => dispatch(toggleTodo(id)),
-  changeInputValue: (payload) => dispatch(changeInputValue(payload))
+  changeInputValue: payload => dispatch(changeInputValue(payload)),
+  changeDatePickerValue: payload => dispatch(changeDatePickerValue(payload)),
 });
 
 export default connect(
