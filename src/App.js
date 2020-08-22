@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -9,15 +9,7 @@ import {
   Paper,
   Box,
   Button,
-  TextField,
-  Dialog,
-  DialogContent,
-  IconButton,
-  FormControlLabel,
-  Checkbox,
 } from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
-import AttachFileIcon from '@material-ui/icons/AttachFile';
 import ProfileView from './components/ProfileView';
 import ProfileForm from './components/ProfileForm';
 import { connect } from 'react-redux';
