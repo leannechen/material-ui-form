@@ -99,12 +99,15 @@ function ProfileForm(props) {
           <TextField
             id="standard-number"
             label="Age"
+            type="number"
             value={personalForm.age.value}
             className={classes.textField}
             required
             fullWidth
             error={!!personalForm.age.invalidMsg}
+            helperText={personalForm.age.invalidMsg}
             onChange={handleInputChange("age")}
+            inputProps={{ 'maxLength': '3' }}
           />
         </fieldset>
         <fieldset className={classes.fieldset}>

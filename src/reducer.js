@@ -1,21 +1,34 @@
+import validator from './utils/validator';
 
 const initialState = {
   personalForm: {
     name: {
-      value: "Justin",
-      validateReg: "",
+      value: "",
+      validateRule: {
+        minLength: 1,
+        maxLength: 200,
+        regex: null, // [\S]+
+      },
       invalidMsg: "", // error hint. if not empty, then it has error
       touched: false,
     },
     age: {
-      value: 0,
-      validateReg: "",
+      value: "",
+      validateRule: {
+        minLength: 1,
+        maxLength: 3,
+        regex: /^\d+$/,
+      },
       invalidMsg: "",
       touched: false,
     },
     avatarImg: {
       value: "",
-      validateReg: "",
+      validateRule: {
+        minLength: 1,
+        maxLength: 500,
+        regex: null,
+      },
       invalidMsg: "",
       touched: false,
     },
@@ -23,43 +36,71 @@ const initialState = {
   jobForm: {
     jobTitle: {
       value: "",
-      validateReg: "",
+      validateRule: {
+        minLength: 1,
+        maxLength: 200,
+        regex: null,
+      },
       invalidMsg: "",
       touched: false,
     },
     company: {
       value: "",
-      validateReg: "",
+      validateRule: {
+        minLength: 1,
+        maxLength: 200,
+        regex: null,
+      },
       invalidMsg: "",
       touched: false,
     },
     companyLogo: {
       value: "",
-      validateReg: "",
+      validateRule: {
+        minLength: 1,
+        maxLength: 200,
+        regex: null,
+      },
       invalidMsg: "",
       touched: false,
     },
     startDate: {
       value: null,
-      validateReg: "",
+      validateRule: {
+        minLength: 1,
+        maxLength: 10,
+        regex: /\d{4}\/\d{1,2}\/\d{1,2}/,
+      },
       invalidMsg: "",
       touched: false,
     },
     endDate: {
       value: null,
-      validateReg: "",
+      validateRule: {
+        minLength: 1,
+        maxLength: 10,
+        regex: /\d{4}\/\d{1,2}\/\d{1,2}/,
+      },
       invalidMsg: "",
       touched: false,
     },
     isCurrent: {
       value: false,
-      validateReg: "",
+      validateRule: {  // todo: boolean how to do?
+        minLength: 1,
+        maxLength: 10,
+        regex: null,
+      },
       invalidMsg: "",
       touched: false,
     },
     jobDesc: {
       value: "",
-      validateReg: "",
+      validateRule: {
+        minLength: 1,
+        maxLength: 1000,
+        regex: null,
+      },
       invalidMsg: "",
       touched: false,
     },
@@ -96,25 +137,23 @@ const reducer = (state = initialState, action) => {
           : todo
       );
     case 'CHANGE_PERSONAL_INPUT':
-      // const { type, payload } = action;
+
       const { fieldName, value } = action;
-      console.log(action);
-      // todo:
-      // find target field object
-      // change value
-      // validate, change invalidMsg
-      // const allFieldNames = [ ...Object.keys(state.personalForm), ...Object.keys(state.jobForm) ];
-      // const field = state.personalForm[fieldName] || state.jobForm[fieldName];
-      const newField = {
-        ...state.personalForm[fieldName],
+      const invalidMsg = validator({
         value,
-      };
+        validateRule: state.personalForm[fieldName].validateRule,
+      });
 
       return {
         ...state,
         personalForm: {
           ...state.personalForm,
-          [fieldName]: newField,
+          [fieldName]: {
+            ...state.personalForm[fieldName],
+            value,
+            invalidMsg,
+            touched: true,
+          },
         }
       };
     default:
