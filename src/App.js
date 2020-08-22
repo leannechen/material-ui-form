@@ -129,7 +129,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   // toggleTodo: id => dispatch(toggleTodo(id)),
-  changePersonalInput: ({ fieldName, value }) => dispatch(changePersonalInput({ fieldName, value }))
+  changePersonalInput: (payload) => dispatch(changePersonalInput(payload))
 });
 
 export default connect(

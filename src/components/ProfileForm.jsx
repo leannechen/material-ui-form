@@ -65,9 +65,12 @@ function ProfileForm(props) {
   const { personalForm, jobList, jobForm, changePersonalInput } = props;
   const [ isShowDialog, setIsShowDialog ] = useState(false);
 
-  const handleInputChange = (fieldName) => (e) => {
-    console.log(fieldName, e.target.value);
-    changePersonalInput({ fieldName, value: e.target.value });
+  const handleInputChange = (fieldName, formName) => (e) => {
+    changePersonalInput({
+      formName,
+      fieldName,
+      value: e.target.value
+    });
   };
 
   const handleOpenDialog = () => {
@@ -195,6 +198,7 @@ function ProfileForm(props) {
       <JobDialog
         isShowDialog={isShowDialog}
         jobForm={jobForm}
+        onInputChange={handleInputChange}
         onOpenDialog={handleOpenDialog}
         onCloseDialog={handleCloseDialog}
       />

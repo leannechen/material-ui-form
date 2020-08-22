@@ -138,18 +138,23 @@ const reducer = (state = initialState, action) => {
       );
     case 'CHANGE_PERSONAL_INPUT':
 
-      const { fieldName, value } = action;
+      const { formName = "personalForm", fieldName, value } = action;
+
+      if(!state[formName] || !state[formName][fieldName]) {
+        return state;
+      }
+
       const invalidMsg = validator({
         value,
-        validateRule: state.personalForm[fieldName].validateRule,
+        validateRule: state[formName][fieldName].validateRule,
       });
 
       return {
         ...state,
-        personalForm: {
-          ...state.personalForm,
+        [formName]: {
+          ...state[formName],
           [fieldName]: {
-            ...state.personalForm[fieldName],
+            ...state[formName][fieldName],
             value,
             invalidMsg,
             touched: true,

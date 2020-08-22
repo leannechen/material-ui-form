@@ -35,6 +35,10 @@ const useStyles = makeStyles((theme) => ({
   },
   dialogSaveButton: {
     fontSize: `1rem`,
+    padding: `${theme.spacing(2)}px 0`,
+  },
+  textField: {
+    marginBottom: theme.spacing(2),
   },
   datePicker: {
     marginBottom: theme.spacing(2),
@@ -58,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
 function JobDialog(props) {
 
   const classes = useStyles();
-  const { isShowDialog, onCloseDialog, onOpenDialog, jobForm } = props;
+  const { isShowDialog, onCloseDialog, onOpenDialog, jobForm, onInputChange } = props;
 
   return (
     <Dialog
@@ -87,7 +91,7 @@ function JobDialog(props) {
             fullWidth
             error={!!jobForm.jobTitle.invalidMsg}
             helperText={jobForm.jobTitle.invalidMsg}
-            onChange={() => {}}
+            onChange={onInputChange("jobTitle", "jobForm")}
           />
           <TextField
             label="Company"
@@ -97,7 +101,7 @@ function JobDialog(props) {
             fullWidth
             error={!!jobForm.company.invalidMsg}
             helperText={jobForm.company.invalidMsg}
-            onChange={() => {}}
+            onChange={onInputChange("company", "jobForm")}
           />
           <div className={classes.uploadContainer}>
             <Typography gutterBottom className={classes.uploadLabel}>
@@ -148,6 +152,7 @@ function JobDialog(props) {
               />
             }
             label="I am currently working in this role"
+            className={classes.textField}
           />
           <TextField
             label="Job Description"
@@ -161,7 +166,7 @@ function JobDialog(props) {
             error={!!jobForm.jobDesc.invalidMsg}
             helperText={jobForm.jobDesc.invalidMsg}
             placeholder="Describe your works"
-            onChange={() => {}}
+            onChange={onInputChange("jobDesc", "jobForm")}
           />
         </div>
       </DialogContent>
