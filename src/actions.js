@@ -1,6 +1,6 @@
 // Personal Form
-export const changePersonalInput = ({ formName, fieldName, value }) => ({
-  type: 'CHANGE_PERSONAL_INPUT',
+export const changeInputValue = ({ formName, fieldName, value }) => ({
+  type: 'CHANGE_INPUT_VALUE',
   formName,
   fieldName,
   value,

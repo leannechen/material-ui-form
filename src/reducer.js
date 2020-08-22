@@ -136,7 +136,7 @@ const reducer = (state = initialState, action) => {
           ? {...todo, completed: !todo.completed}
           : todo
       );
-    case 'CHANGE_PERSONAL_INPUT':
+    case 'CHANGE_INPUT_VALUE':
 
       const { formName = "personalForm", fieldName, value } = action;
 

@@ -13,7 +13,7 @@ import {
 import ProfileView from './components/ProfileView';
 import ProfileForm from './components/ProfileForm';
 import { connect } from 'react-redux';
-import { changePersonalInput } from './actions';
+import { changeInputValue } from './actions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -59,7 +59,7 @@ function App(props) {
   console.log(props);
   const classes = useStyles();
   const [ isEditing, setIsEditing ] = useState(false);
-  const { store, changePersonalInput } = props;
+  const { store, changeInputValue } = props;
   const { personalForm, jobForm, jobList } = store;
 
   const handleClickStartEdit = () => {
@@ -110,7 +110,7 @@ function App(props) {
                 personalForm={personalForm}
                 jobList={jobList}
                 jobForm={jobForm}
-                changePersonalInput={changePersonalInput}
+                changeInputValue={changeInputValue}
               />
             }
           </Paper>
@@ -129,7 +129,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   // toggleTodo: id => dispatch(toggleTodo(id)),
-  changePersonalInput: (payload) => dispatch(changePersonalInput(payload))
+  changeInputValue: (payload) => dispatch(changeInputValue(payload))
 });
 
 export default connect(

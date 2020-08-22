@@ -62,11 +62,11 @@ const useStyles = makeStyles((theme) => ({
 
 function ProfileForm(props) {
   const classes = useStyles();
-  const { personalForm, jobList, jobForm, changePersonalInput } = props;
+  const { personalForm, jobList, jobForm, changeInputValue } = props;
   const [ isShowDialog, setIsShowDialog ] = useState(false);
 
   const handleInputChange = (fieldName, formName) => (e) => {
-    changePersonalInput({
+    changeInputValue({
       formName,
       fieldName,
       value: e.target.value
