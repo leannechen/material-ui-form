@@ -44,6 +44,15 @@ const useStyles = makeStyles((theme) => ({
     width: `80%`,
     margin: `auto`,
   },
+  uploadContainer: {
+    display: `flex`,
+    margin: `${theme.spacing(2)}px 0`,
+    alignItems: `center`,
+  },
+  uploadLabel: {
+    marginRight: theme.spacing(1),
+    marginBottom: theme.spacing(0),
+  },
 }));
 
 function JobDialog(props) {
@@ -90,8 +99,8 @@ function JobDialog(props) {
             helperText={jobForm.company.invalidMsg}
             onChange={() => {}}
           />
-          <div>
-            <Typography gutterBottom>
+          <div className={classes.uploadContainer}>
+            <Typography gutterBottom className={classes.uploadLabel}>
               Company Logo
             </Typography>
             <Button
