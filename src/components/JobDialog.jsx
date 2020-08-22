@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
 function JobDialog(props) {
 
   const classes = useStyles();
-  const { isShowDialog, onCloseDialog, onOpenDialog, jobForm, onInputChange, onDatePickerChange } = props;
+  const { isShowDialog, onCloseDialog, onOpenDialog, jobForm, onInputChange, onDatePickerChange, onToggleIsCurrentJob } = props;
 
   return (
     <Dialog
@@ -145,12 +145,13 @@ function JobDialog(props) {
             }}
             error={jobForm.startDate.touched && jobForm.endDate.touched && (jobForm.startDate.value > jobForm.endDate.value)}
             helperText="End Date should be after Start Date"
+            disabled={jobForm.isCurrent.value}
           />
           <FormControlLabel
             control={
               <Checkbox
                 checked={jobForm.isCurrent.value}
-                onChange={(e) => { console.log(e.target.checked) }}
+                onChange={onToggleIsCurrentJob}
                 name="isCurrent"
                 color="primary"
               />

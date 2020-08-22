@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
 
 function ProfileForm(props) {
   const classes = useStyles();
-  const { personalForm, jobList, jobForm, changeInputValue, changeDatePickerValue } = props;
+  const { personalForm, jobList, jobForm, changeInputValue, changeDatePickerValue, toggleIsCurrentJob } = props;
   const [ isShowDialog, setIsShowDialog ] = useState(false);
 
   const handleInputChange = (fieldName, formName) => (e) => {
@@ -80,6 +80,12 @@ function ProfileForm(props) {
       fieldName,
       value: new Date(value).getTime(),
     })
+  };
+
+  const handleToggleIsCurrentJob = e => {
+    toggleIsCurrentJob({
+      value: e.target.checked,
+    });
   };
 
   const handleOpenDialog = () => {
@@ -209,6 +215,7 @@ function ProfileForm(props) {
         jobForm={jobForm}
         onInputChange={handleInputChange}
         onDatePickerChange={handleDatePickerChange}
+        onToggleIsCurrentJob={handleToggleIsCurrentJob}
         onOpenDialog={handleOpenDialog}
         onCloseDialog={handleCloseDialog}
       />
