@@ -78,7 +78,7 @@ function ProfileForm(props) {
     console.log(value)
     changeDatePickerValue({
       fieldName,
-      value,
+      value: new Date(value).getTime(),
     })
   };
 

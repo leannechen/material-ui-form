@@ -65,22 +65,12 @@ const initialState = {
       touched: false,
     },
     startDate: {
-      value: null,
-      validateRule: {
-        minLength: 1,
-        maxLength: 10,
-        regex: /\d{4}\/\d{1,2}\/\d{1,2}/,
-      },
+      value: null, // null, timestamp ex. 1498229700000 (number)
       invalidMsg: "",
       touched: false,
     },
     endDate: {
       value: null,
-      validateRule: {
-        minLength: 1,
-        maxLength: 10,
-        regex: /\d{4}\/\d{1,2}\/\d{1,2}/,
-      },
       invalidMsg: "",
       touched: false,
     },

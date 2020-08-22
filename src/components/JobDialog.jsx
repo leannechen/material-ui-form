@@ -123,7 +123,7 @@ function JobDialog(props) {
             format="yyyy/MM/dd"
             views={["year", "month", "date"]}
             label="Start Date"
-            value={jobForm.startDate.value}
+            value={jobForm.startDate.value? new Date(jobForm.startDate.value) : null}
             onChange={onDatePickerChange("startDate")}
             KeyboardButtonProps={{
               'aria-label': 'Change start date of the job',
@@ -136,7 +136,7 @@ function JobDialog(props) {
             format="yyyy/MM/dd"
             views={["year", "month", "date"]}
             label="End Date"
-            value={jobForm.endDate.value}
+            value={jobForm.endDate.value? new Date(jobForm.endDate.value) : null}
             onChange={onDatePickerChange("endDate")}
             KeyboardButtonProps={{
               'aria-label': 'Change end date of the job',
