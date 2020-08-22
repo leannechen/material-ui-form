@@ -66,12 +66,10 @@ const initialState = {
     },
     startDate: {
       value: null, // null, timestamp ex. 1498229700000 (number)
-      invalidMsg: "",
       touched: false,
     },
     endDate: {
       value: null,
-      invalidMsg: "",
       touched: false,
     },
     isCurrent: {
@@ -163,7 +161,8 @@ const reducer = (state = initialState, action) => {
           [fieldName]: {
             ...state.jobForm[fieldName],
             value,
-          }
+            touched: true,
+          },
         }
       };
     }
