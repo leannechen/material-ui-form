@@ -74,12 +74,6 @@ const initialState = {
     },
     isCurrent: {
       value: false,
-      validateRule: {  // todo: boolean how to do?
-        minLength: 1,
-        maxLength: 10,
-        regex: null,
-      },
-      invalidMsg: "",
       touched: false,
     },
     jobDesc: {
@@ -170,48 +164,23 @@ const reducer = (state = initialState, action) => {
     {
       const { value } = action;
 
-      /*
-      isCurrent: {
-      value: false,
-      validateRule: {  // todo: boolean how to do?
-        minLength: 1,
-        maxLength: 10,
-        regex: null,
-      },
-      invalidMsg: "",
-      touched: false,
-    },
-      * */
-
-      if(value === true) {
-        return {
-          ...state,
-          jobForm: {
-            ...state.jobForm,
+      return {
+        ...state,
+        jobForm: {
+          ...state.jobForm,
+          isCurrent: {
+            ...state.jobForm.isCurrent,
+            value,
+            touched: true,
+          },
+          ...(value === true && {
             endDate: {
               ...state.jobForm.endDate,
               value: null,
             },
-            isCurrent: {
-              ...state.jobForm.isCurrent,
-              value,
-              touched: true,
-            },
-          }
-        };
-      } else {
-        return {
-          ...state,
-          jobForm: {
-            ...state.jobForm,
-            isCurrent: {
-              ...state.jobForm.isCurrent,
-              value,
-              touched: true,
-            },
-          }
-        };
-      }
+          })
+        }
+      };
     }
     default:
       return state
