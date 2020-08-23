@@ -36,17 +36,22 @@ const useStyles = makeStyles((theme) => ({
     display: `flex`,
     fontSize: `1rem`,
     marginBottom: theme.spacing(1),
-    padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
+    padding: theme.spacing(3),
+  },
+  cardContent: {
+    flex: 7,
+    padding: theme.spacing(0),
+  },
+  cardActions: {
+    flex: 1,
+    flexDirection: `column`,
+    padding: 0,
   },
   cardImg: {
     minWidth: `100px`,
     maxWidth: `100%`,
     minHeight: `100px`,
     maxHeight: `300px`,
-  },
-  cardActions: {
-    flexDirection: `column`,
-    padding: 0,
   },
   jobTh: {
     textAlign: `left`,
@@ -58,11 +63,14 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
     verticalAlign: `top`,
   },
+  utilMultiLine: {
+    whiteSpace: `pre-line`,
+  }
 }));
 
 function ProfileForm(props) {
   const classes = useStyles();
-  const { personalForm, jobList, jobForm, changeInputValue, changeDatePickerValue, toggleIsCurrentJob } = props;
+  const { personalForm, jobList, jobForm, changeInputValue, changeDatePickerValue, toggleIsCurrentJob, submitSingleJob } = props;
   const [ isShowDialog, setIsShowDialog ] = useState(false);
 
   const handleInputChange = (fieldName, formName) => (e) => {
@@ -74,8 +82,6 @@ function ProfileForm(props) {
   };
 
   const handleDatePickerChange = fieldName => value => {
-    console.log(fieldName)
-    console.log(value)
     changeDatePickerValue({
       fieldName,
       value: new Date(value).getTime(),
@@ -86,6 +92,11 @@ function ProfileForm(props) {
     toggleIsCurrentJob({
       value: e.target.checked,
     });
+  };
+
+  const handleSubmitJob = () => {
+    setIsShowDialog(false);
+    submitSingleJob();
   };
 
   const handleOpenDialog = () => {
@@ -150,7 +161,7 @@ function ProfileForm(props) {
               :
               jobList.map(job => (
                 <Card key={job.company} className={classes.card}>
-                  <CardContent>
+                  <CardContent className={classes.cardContent}>
                     <table>
                       <tbody>
                         <tr>
@@ -177,11 +188,11 @@ function ProfileForm(props) {
                         </tr>
                         <tr>
                           <th className={classes.jobTh}>End Date</th>
-                          <td className={classes.jobTd}>{job.isCurrentJob? "N/A (Present)": job.endDate}</td>
+                          <td className={classes.jobTd}>{job.isCurrent? "N/A (Present)": job.endDate}</td>
                         </tr>
                         <tr>
                           <th className={classes.jobTh}>Job Description</th>
-                          <td className={classes.jobTd}>{job.jobDescription}</td>
+                          <td className={`${classes.jobTd} ${classes.utilMultiLine}`}>{job.jobDesc}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -216,6 +227,7 @@ function ProfileForm(props) {
         onInputChange={handleInputChange}
         onDatePickerChange={handleDatePickerChange}
         onToggleIsCurrentJob={handleToggleIsCurrentJob}
+        onSubmitSingleJob={handleSubmitJob}
         onOpenDialog={handleOpenDialog}
         onCloseDialog={handleCloseDialog}
       />

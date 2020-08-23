@@ -14,3 +14,7 @@ export const toggleIsCurrentJob = (payload) => ({
   type: 'TOGGLE_IS_CURRENT_JOB',
 });
 
+export const submitSingleJob = (payload) => ({
+  ...payload,
+  type: 'SUBMIT_SINGLE_JOB',
+});

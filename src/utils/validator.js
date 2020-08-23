@@ -1,6 +1,6 @@
 const validator = ({ value, validateRule }) => {
   const { minLength, maxLength, regex } = validateRule;
-console.log(value)
+
   if(typeof value !== 'string') {
     return '';
   }

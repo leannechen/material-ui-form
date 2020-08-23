@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
 function JobDialog(props) {
 
   const classes = useStyles();
-  const { isShowDialog, onCloseDialog, onOpenDialog, jobForm, onInputChange, onDatePickerChange, onToggleIsCurrentJob } = props;
+  const { isShowDialog, onCloseDialog, onOpenDialog, jobForm, onInputChange, onDatePickerChange, onToggleIsCurrentJob, onSubmitSingleJob } = props;
 
   // todo: Object.keys(jobForm) except "isCurrent", "companyLogo"
   const isSubmitBtnEnabled = Object.keys(jobForm)
@@ -191,7 +191,7 @@ function JobDialog(props) {
         color="primary"
         variant="contained"
         className={classes.dialogSaveButton}
-        onClick={() => {}}
+        onClick={onSubmitSingleJob}
         disabled={!isSubmitBtnEnabled}
       >
         Save

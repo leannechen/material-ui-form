@@ -215,6 +215,31 @@ const reducer = (state = initialState, action) => {
         }
       };
     }
+    case 'SUBMIT_SINGLE_JOB':
+    {
+      // const { jobId } = action; // todo: create ID for each job
+      // 新增
+      // 編輯
+      const newJob = Object.keys(state.jobForm)
+        .filter(fieldName => fieldName !== "companyLogo")
+        .reduce((accu, fieldName) => {
+          return {
+            ...accu,
+            [fieldName]: state.jobForm[fieldName].value,
+          }
+        }, {});
+
+      console.log(newJob);
+
+      return {
+        ...state,
+        jobForm: initialState.jobForm,
+        jobList: [
+          ...state.jobList,
+          newJob,
+        ]
+      };
+    }
     default:
       return state
   }
