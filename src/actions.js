@@ -18,3 +18,13 @@ export const submitSingleJob = (payload) => ({
   ...payload,
   type: 'SUBMIT_SINGLE_JOB',
 });
+
+export const setFieldsInvalidMsg = (payload) => ({
+  ...payload,
+  type: 'SET_FIELDS_INVALID_MSG',
+});
+
+export const submitOverallForm = (payload) => ({
+  ...payload,
+  type: 'SUBMIT_OVERALL_FORM',
+});

@@ -240,6 +240,31 @@ const reducer = (state = initialState, action) => {
         ]
       };
     }
+    case 'SUBMIT_OVERALL_FORM':
+    {
+      // --- below in view ---
+      // make all first layer fields touched
+      // validate all first layer fields
+      // if any is invalid, set invalid messages (action)
+      // prevent from submit
+      // --- below action ---
+      // if all are valid, submit the form
+      // assemble form data
+
+      return {
+        ...state
+      }
+    }
+    case 'SET_FIELDS_INVALID_MSG':
+    {
+      const { validatedFields } = action;
+      return {
+        ...state,
+        personalForm: {
+          ...validatedFields
+        },
+      }
+    }
     default:
       return state
   }

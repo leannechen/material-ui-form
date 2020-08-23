@@ -13,7 +13,14 @@ import {
 import ProfileView from './components/ProfileView';
 import ProfileForm from './components/ProfileForm';
 import { connect } from 'react-redux';
-import { changeInputValue, changeDatePickerValue, toggleIsCurrentJob, submitSingleJob } from './actions';
+import {
+  changeInputValue,
+  changeDatePickerValue,
+  toggleIsCurrentJob,
+  submitSingleJob,
+  submitOverallForm,
+  setFieldsInvalidMsg
+} from './actions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -59,7 +66,7 @@ function App(props) {
   console.log(props);
   const classes = useStyles();
   const [ isEditing, setIsEditing ] = useState(false);
-  const { store, changeInputValue, changeDatePickerValue, toggleIsCurrentJob, submitSingleJob } = props;
+  const { store, changeInputValue, changeDatePickerValue, toggleIsCurrentJob, submitSingleJob, setFieldsInvalidMsg, submitOverallForm } = props;
   const { personalForm, jobForm, jobList } = store;
 
   const handleClickStartEdit = () => {
@@ -114,6 +121,8 @@ function App(props) {
                 changeDatePickerValue={changeDatePickerValue}
                 toggleIsCurrentJob={toggleIsCurrentJob}
                 submitSingleJob={submitSingleJob}
+                setFieldsInvalidMsg={setFieldsInvalidMsg}
+                submitOverallForm={submitOverallForm}
               />
             }
           </Paper>
@@ -136,6 +145,8 @@ const mapDispatchToProps = dispatch => ({
   changeDatePickerValue: payload => dispatch(changeDatePickerValue(payload)),
   toggleIsCurrentJob:  payload => dispatch(toggleIsCurrentJob(payload)),
   submitSingleJob: payload => dispatch(submitSingleJob(payload)),
+  setFieldsInvalidMsg: payload => dispatch(setFieldsInvalidMsg(payload)),
+  submitOverallForm: payload => dispatch(submitSingleJob(payload)),
 });
 
 export default connect(

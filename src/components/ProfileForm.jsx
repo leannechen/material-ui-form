@@ -11,6 +11,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import { format } from "date-fns";
 import JobDialog from "./JobDialog";
+import validator from "../utils/validator";
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -81,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
 
 function ProfileForm(props) {
   const classes = useStyles();
-  const { personalForm, jobList, jobForm, changeInputValue, changeDatePickerValue, toggleIsCurrentJob, submitSingleJob } = props;
+  const { personalForm, jobList, jobForm, changeInputValue, changeDatePickerValue, toggleIsCurrentJob, submitSingleJob, setFieldsInvalidMsg, submitOverallForm } = props;
   const [ isShowDialog, setIsShowDialog ] = useState(false);
 
   const handleInputChange = (fieldName, formName) => (e) => {
@@ -108,6 +109,38 @@ function ProfileForm(props) {
   const handleSubmitJob = () => {
     setIsShowDialog(false);
     submitSingleJob();
+  };
+
+  const handleSubmitForm = () => {
+
+    const validatedFields = Object.keys(personalForm)
+      .filter(fieldName => fieldName !== "avatarImg") // FIXME: avatarImg
+      .reduce((accu, fieldName) => {
+
+        const invalidMsg = validator({
+          value: personalForm[fieldName].value,
+          validateRule: personalForm[fieldName].validateRule,
+        });
+
+        return {
+          ...accu,
+          [fieldName]: {
+            ...personalForm[fieldName],
+            touched: true,
+            invalidMsg,
+          }
+        }
+      }, {});
+
+    const isAnyFieldInvalid = Object.keys(validatedFields)
+      .some(fieldName => !!validatedFields[fieldName].invalidMsg);
+
+    if(isAnyFieldInvalid) {
+      setFieldsInvalidMsg({ validatedFields });
+    } else {
+      alert("all ok, send")
+      // submitOverallForm()
+    }
   };
 
   const handleOpenDialog = () => {
@@ -238,7 +271,7 @@ function ProfileForm(props) {
           variant="contained"
           size="large"
           className={classes.btnSubmit}
-          onClick={() => {}}
+          onClick={handleSubmitForm}
           disabled={false}
         >
           Save
