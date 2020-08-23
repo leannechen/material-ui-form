@@ -9,6 +9,7 @@ import {
 import AddIcon from "@material-ui/icons/Add";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
+import { format } from "date-fns";
 import JobDialog from "./JobDialog";
 
 const useStyles = makeStyles((theme) => ({
@@ -107,6 +108,8 @@ function ProfileForm(props) {
     setIsShowDialog(false);
   };
 
+  const getDateInFormat = (timestamp) => format(new Date(timestamp), "yyyy-MM-dd");
+
   return (
     <div>
       <form className={classes.formContainer}>
@@ -184,11 +187,11 @@ function ProfileForm(props) {
                         </tr>
                         <tr>
                           <th className={classes.jobTh}>Start Date</th>
-                          <td className={classes.jobTd}>{job.startDate}</td>
+                          <td className={classes.jobTd}>{getDateInFormat(job.startDate)}</td>
                         </tr>
                         <tr>
                           <th className={classes.jobTh}>End Date</th>
-                          <td className={classes.jobTd}>{job.isCurrent? "N/A (Present)": job.endDate}</td>
+                          <td className={classes.jobTd}>{job.isCurrent? "N/A (Present)": getDateInFormat(job.endDate)}</td>
                         </tr>
                         <tr>
                           <th className={classes.jobTh}>Job Description</th>
