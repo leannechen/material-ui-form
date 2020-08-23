@@ -9,9 +9,9 @@ import {
 import AddIcon from "@material-ui/icons/Add";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
-import { format } from "date-fns";
 import JobDialog from "./JobDialog";
 import validator from "../utils/validator";
+import { getDateInFormat } from "../utils/date";
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -149,9 +149,7 @@ function ProfileForm(props) {
   const handleCloseDialog = () => {
     setIsShowDialog(false);
   };
-
-  const getDateInFormat = (timestamp) => format(new Date(timestamp), "yyyy-MM-dd");
-
+  
   return (
     <div>
       <form className={classes.formContainer}>
