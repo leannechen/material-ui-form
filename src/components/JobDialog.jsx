@@ -66,9 +66,15 @@ function JobDialog(props) {
   const { isShowDialog, onCloseDialog, onOpenDialog, jobForm, onInputChange, onDatePickerChange, onToggleIsCurrentJob } = props;
 
   // todo: Object.keys(jobForm) except "isCurrent", "companyLogo"
-  // todo: refactor startDate, endDate logic
-  const isSubmitBtnDisabled = ["jobTitle", "company", "startDate", "endDate", "jobDesc"]
-    .some(fieldName => !jobForm[fieldName].value || !!jobForm[fieldName].invalidMsg);
+  const isSubmitBtnEnabled = Object.keys(jobForm)
+      .filter(fieldName => fieldName !== "isCurrent" && fieldName !== "companyLogo")
+      .every(fieldName => {
+        const isCorrectValue = (jobForm[fieldName].value && !jobForm[fieldName].invalidMsg);
+        return (fieldName === "endDate")?
+          isCorrectValue || (jobForm.isCurrent.value === true)
+          :
+          isCorrectValue;
+      });
 
   return (
     <Dialog
@@ -186,7 +192,7 @@ function JobDialog(props) {
         variant="contained"
         className={classes.dialogSaveButton}
         onClick={() => {}}
-        disabled={isSubmitBtnDisabled}
+        disabled={!isSubmitBtnEnabled}
       >
         Save
       </Button>
