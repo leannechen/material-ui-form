@@ -97,8 +97,8 @@ const initialState = {
       companyLogo: "https://source.unsplash.com/random/400x300",
       startDate: "2019/6/1",
       endDate: "",
-      isCurrentJob: true,
-      jobDescription: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias amet architecto at dolor ea iste nam quo similique vitae voluptas? Eum ipsam obcaecati perferendis porro provident quam, velit voluptate voluptatibus perferendis porro provident quam, velit voluptate voluptatibus."
+      isCurrent: true,
+      jobDesc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias amet architecto at dolor ea iste nam quo similique vitae voluptas? Eum ipsam obcaecati perferendis porro provident quam, velit voluptate voluptatibus perferendis porro provident quam, velit voluptate voluptatibus."
     }
   * */
 };

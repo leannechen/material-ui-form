@@ -88,6 +88,15 @@ function App(props) {
     });
   };
 
+  const devGetData = () => {
+    // todo: save uid to localStorage, use this to map user profile and get data
+    // context api?
+    const ref = db.collection("profiles").doc("DC5p36PJ1qwTN77MJ3ul");
+    ref.get().then(doc => {
+      console.log(doc.data());
+    })
+  };
+
   const renderWelcomeContent = () => (
     <div className={classes.welcomeContent}>
       <Typography variant="body1" gutterBottom align="center" className={classes.welcomeText}>
@@ -118,6 +127,7 @@ function App(props) {
             {/* fordev */}
             <button onClick={() => { setIsEditing(isEditing => !isEditing); }}>Toggle</button>
             <button onClick={devAddData}>Add data to Firebase</button>
+            <button onClick={devGetData}>Get data from Firebase</button>
             {/* todo: 判斷是否有profile */}
             { (!isEditing && !personalForm.name.value) &&
               renderWelcomeContent()
