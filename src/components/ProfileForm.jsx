@@ -16,6 +16,9 @@ const useStyles = makeStyles((theme) => ({
   formContainer: {
     margin: `auto`,
     width: `60%`,
+    [theme.breakpoints.down('sm')]: {
+      width: `90%`,
+    },
   },
   heading: {
     fontWeight: `bold`,
