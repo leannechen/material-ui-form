@@ -134,8 +134,8 @@ function JobDialog(props) {
             KeyboardButtonProps={{
               'aria-label': 'Change start date of the job',
             }}
-            error={jobForm.startDate.touched && jobForm.endDate.touched && (jobForm.startDate.value > jobForm.endDate.value)}
-            helperText="Start date should be before End Date"
+            error={jobForm.startDate.touched && !!jobForm.startDate.invalidMsg}
+            helperText={jobForm.startDate.invalidMsg}
           />
           <KeyboardDatePicker
             className={classes.datePicker}
@@ -149,8 +149,8 @@ function JobDialog(props) {
             KeyboardButtonProps={{
               'aria-label': 'Change end date of the job',
             }}
-            error={jobForm.startDate.touched && jobForm.endDate.touched && (jobForm.startDate.value > jobForm.endDate.value)}
-            helperText="End Date should be after Start Date"
+            error={jobForm.endDate.touched && !!jobForm.endDate.invalidMsg}
+            helperText={jobForm.endDate.invalidMsg}
             disabled={jobForm.isCurrent.value}
           />
           <FormControlLabel

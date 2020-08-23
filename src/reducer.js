@@ -66,10 +66,12 @@ const initialState = {
     },
     startDate: {
       value: null, // null, timestamp ex. 1498229700000 (number)
+      invalidMsg: "",
       touched: false,
     },
     endDate: {
       value: null,
+      invalidMsg: "",
       touched: false,
     },
     isCurrent: {
@@ -147,8 +149,13 @@ const reducer = (state = initialState, action) => {
     case 'CHANGE_DATE_PICKER_VALUE':
     {
       const { value, fieldName } = action;
-
-      return {
+      const pairingFieldNames = {
+        startDate: "endDate",
+        endDate: "startDate",
+      };
+      const pairingFieldName = pairingFieldNames[fieldName];
+      // FIXME: Integrate newState with final state
+      const newState = {
         ...state,
         jobForm: {
           ...state.jobForm,
@@ -159,6 +166,27 @@ const reducer = (state = initialState, action) => {
           },
         }
       };
+      const hasBothValue = Object.keys(pairingFieldNames)
+        .every(fieldName => newState.jobForm[fieldName].value !== null);
+      let invalidMsg = "";
+      if((newState.jobForm.startDate.value > newState.jobForm.endDate.value) && hasBothValue) {
+        invalidMsg = "End Date should be after Start Date"
+      }
+
+      return {
+        ...newState,
+        jobForm: {
+          ...newState.jobForm,
+          [fieldName]: {
+            ...newState.jobForm[fieldName],
+            invalidMsg,
+          },
+          [pairingFieldName]: {
+            ...newState.jobForm[pairingFieldName],
+            invalidMsg,
+          }
+        }
+      }
     }
     case 'TOGGLE_IS_CURRENT_JOB':
     {
@@ -177,7 +205,12 @@ const reducer = (state = initialState, action) => {
             endDate: {
               ...state.jobForm.endDate,
               value: null,
+              invalidMsg: "",
             },
+            startDate: {
+              ...state.jobForm.startDate,
+              invalidMsg: "",
+            }
           })
         }
       };
