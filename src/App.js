@@ -21,6 +21,7 @@ import {
   submitOverallForm,
   setFieldsInvalidMsg
 } from './actions';
+import { db } from './services/firebase';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -73,6 +74,20 @@ function App(props) {
     setIsEditing(isEditing => !isEditing);
   };
 
+  const devAddData = () => {
+    db.collection("users").add({
+      first: "Cyril",
+      last: "Larks",
+      born: 1950
+    })
+    .then(function(docRef) {
+      console.log("Document written with ID: ", docRef.id);
+    })
+    .catch(function(error) {
+      console.error("Error adding document: ", error);
+    });
+  };
+
   const renderWelcomeContent = () => (
     <div className={classes.welcomeContent}>
       <Typography variant="body1" gutterBottom align="center" className={classes.welcomeText}>
@@ -102,6 +117,7 @@ function App(props) {
           <Paper className={classes.paper}>
             {/* fordev */}
             <button onClick={() => { setIsEditing(isEditing => !isEditing); }}>Toggle</button>
+            <button onClick={devAddData}>Add data to Firebase</button>
             {/* todo: 判斷是否有profile */}
             { (!isEditing && !personalForm.name.value) &&
               renderWelcomeContent()
