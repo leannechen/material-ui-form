@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
   dialogSaveButton: {
     fontSize: `1rem`,
     padding: `${theme.spacing(2)}px 0`,
+    borderRadius: 0,
   },
   textField: {
     marginBottom: theme.spacing(2),
@@ -63,6 +64,11 @@ function JobDialog(props) {
 
   const classes = useStyles();
   const { isShowDialog, onCloseDialog, onOpenDialog, jobForm, onInputChange, onDatePickerChange, onToggleIsCurrentJob } = props;
+
+  // todo: Object.keys(jobForm) except "isCurrent", "companyLogo"
+  // todo: refactor startDate, endDate logic
+  const isSubmitBtnDisabled = ["jobTitle", "company", "startDate", "endDate", "jobDesc"]
+    .some(fieldName => !jobForm[fieldName].value || !!jobForm[fieldName].invalidMsg);
 
   return (
     <Dialog
@@ -177,10 +183,10 @@ function JobDialog(props) {
       </DialogContent>
       <Button
         color="primary"
-        size="large"
+        variant="contained"
         className={classes.dialogSaveButton}
         onClick={() => {}}
-        disabled={true}
+        disabled={isSubmitBtnDisabled}
       >
         Save
       </Button>
