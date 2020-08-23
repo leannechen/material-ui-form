@@ -30,7 +30,7 @@ export const rehydrateOverallData = (payload) => ({
   type: 'REHYDRATE_OVERALL_DATA',
 });
 
-export const submitOverallForm = () => {
+export const saveOverallForm = () => {
 
   return (dispatch, getState) => {
     const { jobList, personalForm } = getState();
@@ -45,7 +45,6 @@ export const submitOverallForm = () => {
       ...personalData,
       jobList,
     };
-    console.log(allData);
 
     // todo: turn isPosting on
     return db.collection("profiles")

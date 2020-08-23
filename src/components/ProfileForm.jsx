@@ -82,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
 
 function ProfileForm(props) {
   const classes = useStyles();
-  const { personalForm, jobList, jobForm, changeInputValue, changeDatePickerValue, toggleIsCurrentJob, submitSingleJob, setFieldsInvalidMsg, submitOverallForm } = props;
+  const { personalForm, jobList, jobForm, changeInputValue, changeDatePickerValue, toggleIsCurrentJob, submitSingleJob, setFieldsInvalidMsg, saveOverallForm } = props;
   const [ isShowDialog, setIsShowDialog ] = useState(false);
 
   const handleInputChange = (fieldName, formName) => (e) => {
@@ -138,7 +138,7 @@ function ProfileForm(props) {
     if(isAnyFieldInvalid) {
       setFieldsInvalidMsg({ validatedFields });
     } else {
-      submitOverallForm();
+      saveOverallForm();
     }
   };
 
@@ -149,7 +149,7 @@ function ProfileForm(props) {
   const handleCloseDialog = () => {
     setIsShowDialog(false);
   };
-  
+
   return (
     <div>
       <form className={classes.formContainer}>

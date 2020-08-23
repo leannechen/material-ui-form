@@ -18,7 +18,7 @@ import {
   changeDatePickerValue,
   toggleIsCurrentJob,
   submitSingleJob,
-  submitOverallForm,
+  saveOverallForm,
   setFieldsInvalidMsg,
   requestOverallForm,
 } from './actions';
@@ -68,7 +68,7 @@ function App(props) {
 
   const classes = useStyles();
   const [ isEditing, setIsEditing ] = useState(false);
-  const { store, changeInputValue, changeDatePickerValue, toggleIsCurrentJob, submitSingleJob, setFieldsInvalidMsg, submitOverallForm, requestOverallForm } = props;
+  const { store, changeInputValue, changeDatePickerValue, toggleIsCurrentJob, submitSingleJob, setFieldsInvalidMsg, saveOverallForm, requestOverallForm } = props;
   const { personalForm, jobForm, jobList } = store;
 
   useEffect(() => {
@@ -117,7 +117,6 @@ function App(props) {
   };
 
   const devGetData = () => {
-    // todo: save uid to localStorage, use this to map user profile and get data
     // context api?
     const ref = db.collection("profiles").doc("DC5p36PJ1qwTN77MJ3ul");
     ref.get().then(doc => {
@@ -156,7 +155,7 @@ function App(props) {
             <button onClick={() => { setIsEditing(isEditing => !isEditing); }}>Toggle</button>
             <button onClick={devAddData}>Add data to Firebase</button>
             <button onClick={devGetData}>Get data from Firebase</button>
-            <button onClick={() => { submitOverallForm() }}>mock SAVE</button>
+            <button onClick={() => { saveOverallForm() }}>mock SAVE</button>
             {/* todo: 判斷是否有profile */}
             { (!isEditing && !personalForm.name.value) &&
               renderWelcomeContent()
@@ -178,7 +177,7 @@ function App(props) {
                 toggleIsCurrentJob={toggleIsCurrentJob}
                 submitSingleJob={submitSingleJob}
                 setFieldsInvalidMsg={setFieldsInvalidMsg}
-                submitOverallForm={submitOverallForm}
+                saveOverallForm={saveOverallForm}
               />
             }
           </Paper>
@@ -202,7 +201,7 @@ const mapDispatchToProps = dispatch => ({
   toggleIsCurrentJob:  payload => dispatch(toggleIsCurrentJob(payload)),
   submitSingleJob: payload => dispatch(submitSingleJob(payload)),
   setFieldsInvalidMsg: payload => dispatch(setFieldsInvalidMsg(payload)),
-  submitOverallForm: payload => dispatch(submitOverallForm(payload)),
+  saveOverallForm: payload => dispatch(saveOverallForm(payload)),
   requestOverallForm: payload => dispatch(requestOverallForm(payload)),
 });
 
