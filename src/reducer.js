@@ -257,6 +257,26 @@ const reducer = (state = initialState, action) => {
         },
       }
     }
+    case 'REHYDRATE_OVERALL_DATA':
+    {
+      const { jobList } = action;
+      const newPersonalForm = Object.keys(state.personalForm)
+        .reduce((acc, fieldName) => {
+          return {
+            ...acc,
+            [fieldName]: {
+              ...state.personalForm,
+              value: action[fieldName],
+            }
+          }
+        }, {});
+
+      return {
+        ...state,
+        personalForm: newPersonalForm,
+        jobList,
+      }
+    }
     default:
       return state
   }

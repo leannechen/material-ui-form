@@ -25,6 +25,11 @@ export const setFieldsInvalidMsg = (payload) => ({
   type: 'SET_FIELDS_INVALID_MSG',
 });
 
+export const rehydrateOverallData = (payload) => ({
+  ...payload,
+  type: 'REHYDRATE_OVERALL_DATA',
+});
+
 export const submitOverallForm = () => {
 
   return (dispatch, getState) => {
@@ -54,4 +59,23 @@ export const submitOverallForm = () => {
       });
 
   }
+};
+
+export const requestOverallForm = (firebaseDataId) => {
+  console.log(firebaseDataId);
+
+  return (dispatch, getState) => {
+    return db.collection("profiles")
+      .doc(firebaseDataId)
+      .get()
+      .then(doc => {
+        const response = doc.data();
+        if(typeof response === "object") {
+          dispatch(rehydrateOverallData(response));
+        } else {
+         // back to welcome view
+        }
+      })
+  }
+
 };

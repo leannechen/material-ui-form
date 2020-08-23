@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { makeStyles } from '@material-ui/core/styles';
@@ -19,7 +19,8 @@ import {
   toggleIsCurrentJob,
   submitSingleJob,
   submitOverallForm,
-  setFieldsInvalidMsg
+  setFieldsInvalidMsg,
+  requestOverallForm,
 } from './actions';
 import { db } from './services/firebase';
 
@@ -67,8 +68,15 @@ function App(props) {
 
   const classes = useStyles();
   const [ isEditing, setIsEditing ] = useState(false);
-  const { store, changeInputValue, changeDatePickerValue, toggleIsCurrentJob, submitSingleJob, setFieldsInvalidMsg, submitOverallForm } = props;
+  const { store, changeInputValue, changeDatePickerValue, toggleIsCurrentJob, submitSingleJob, setFieldsInvalidMsg, submitOverallForm, requestOverallForm } = props;
   const { personalForm, jobForm, jobList } = store;
+
+  useEffect(() => {
+    const firebaseDataId = localStorage.getItem('glints-form');
+    if(firebaseDataId) {
+      requestOverallForm(firebaseDataId);
+    }
+  }, []);
 
   const handleClickStartEdit = () => {
     setIsEditing(isEditing => !isEditing);
@@ -194,6 +202,7 @@ const mapDispatchToProps = dispatch => ({
   submitSingleJob: payload => dispatch(submitSingleJob(payload)),
   setFieldsInvalidMsg: payload => dispatch(setFieldsInvalidMsg(payload)),
   submitOverallForm: payload => dispatch(submitOverallForm(payload)),
+  requestOverallForm: payload => dispatch(requestOverallForm(payload)),
 });
 
 export default connect(
