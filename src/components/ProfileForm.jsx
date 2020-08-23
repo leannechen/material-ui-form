@@ -138,8 +138,7 @@ function ProfileForm(props) {
     if(isAnyFieldInvalid) {
       setFieldsInvalidMsg({ validatedFields });
     } else {
-      alert("all ok, send")
-      // submitOverallForm()
+      submitOverallForm();
     }
   };
 
@@ -272,7 +271,6 @@ function ProfileForm(props) {
           size="large"
           className={classes.btnSubmit}
           onClick={handleSubmitForm}
-          disabled={false}
         >
           Save
         </Button>
