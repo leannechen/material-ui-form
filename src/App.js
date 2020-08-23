@@ -75,10 +75,30 @@ function App(props) {
   };
 
   const devAddData = () => {
-    db.collection("users").add({
-      first: "Cyril",
-      last: "Larks",
-      born: 1950
+    db.collection("profiles").add({
+      name: "Lennon",
+      age: 64,
+      avatarImg: "",
+      jobList: [
+        {
+          jobTitle: "Data Analyst 1",
+          company: "Apple",
+          companyLogo: "https://source.unsplash.com/random/400x300",
+          startDate: "2019/6/1",
+          endDate: "2019/12/31",
+          isCurrent: false,
+          jobDesc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias amet architecto at dolor ea iste nam quo similique vitae voluptas? Eum ipsam obcaecati perferendis porro provident quam, velit voluptate voluptatibus perferendis porro provident quam, velit voluptate voluptatibus."
+        },
+        {
+          jobTitle: "Data Analyst 2",
+          company: "BeeHappy",
+          companyLogo: "https://source.unsplash.com/random/400x300",
+          startDate: "2020/2/1",
+          endDate: "",
+          isCurrent: true,
+          jobDesc: "We are going to use axios to fetch data, but it is up to you to use another data fetching library or the native fetch API of the browser."
+        }
+      ]
     })
     .then(function(docRef) {
       console.log("Document written with ID: ", docRef.id);
@@ -128,6 +148,7 @@ function App(props) {
             <button onClick={() => { setIsEditing(isEditing => !isEditing); }}>Toggle</button>
             <button onClick={devAddData}>Add data to Firebase</button>
             <button onClick={devGetData}>Get data from Firebase</button>
+            <button onClick={() => { submitOverallForm() }}>mock SAVE</button>
             {/* todo: 判斷是否有profile */}
             { (!isEditing && !personalForm.name.value) &&
               renderWelcomeContent()
@@ -172,7 +193,7 @@ const mapDispatchToProps = dispatch => ({
   toggleIsCurrentJob:  payload => dispatch(toggleIsCurrentJob(payload)),
   submitSingleJob: payload => dispatch(submitSingleJob(payload)),
   setFieldsInvalidMsg: payload => dispatch(setFieldsInvalidMsg(payload)),
-  submitOverallForm: payload => dispatch(submitSingleJob(payload)),
+  submitOverallForm: payload => dispatch(submitOverallForm(payload)),
 });
 
 export default connect(

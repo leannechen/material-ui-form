@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { applyMiddleware, createStore } from 'redux';
 import logger from 'redux-logger';
+import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import rootReducer from './reducer'
 import './index.css';
@@ -12,7 +13,7 @@ import './services/firebase';
 
 const store = createStore(
   rootReducer,
-  applyMiddleware(logger)
+  applyMiddleware(thunk, logger)
 );
 
 
