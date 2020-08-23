@@ -67,6 +67,13 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
     verticalAlign: `top`,
   },
+  btnSubmit: {
+    display: `block`,
+    margin: `auto`,
+    padding: `10px`,
+    minWidth: `60%`,
+    fontSize: `1rem`,
+  },
   utilMultiLine: {
     whiteSpace: `pre-line`,
   }
@@ -226,6 +233,16 @@ function ProfileForm(props) {
             }
           </div>
         </fieldset>
+        <Button
+          color="primary"
+          variant="contained"
+          size="large"
+          className={classes.btnSubmit}
+          onClick={() => {}}
+          disabled={false}
+        >
+          Save
+        </Button>
       </form>
       <JobDialog
         isShowDialog={isShowDialog}
