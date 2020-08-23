@@ -7,6 +7,7 @@ import {
   CardMedia,
   Avatar,
 } from '@material-ui/core';
+import { getDateInFormat } from '../utils/date';
 
 const useStyles = makeStyles((theme) => ({
   viewContainer: {
@@ -59,11 +60,12 @@ const useStyles = makeStyles((theme) => ({
 
 function ProfileView(props) {
   const classes = useStyles();
-  const { name, age, avatarImg, jobList } = props;
+  const { personalForm, jobList } = props;
+  const { name, age, avatarImg } = personalForm;
 
   return (
     <div className={classes.viewContainer}>
-      <Avatar alt={name} src={avatarImg} className={classes.avatar} />
+      <Avatar alt={name.value} src={avatarImg.value} className={classes.avatar} />
       <Typography variant="h5" component="h3" className={classes.heading} gutterBottom>
         Personal Information
       </Typography>
@@ -72,11 +74,11 @@ function ProfileView(props) {
           <tbody>
             <tr>
               <th className={classes.personalTh}>Name</th>
-              <td className={classes.personalTd}>{name}</td>
+              <td className={classes.personalTd}>{name.value}</td>
             </tr>
             <tr>
               <th className={classes.personalTh}>Age</th>
-              <td className={classes.personalTd}>{age}</td>
+              <td className={classes.personalTd}>{age.value}</td>
             </tr>
           </tbody>
         </table>
@@ -90,26 +92,26 @@ function ProfileView(props) {
           You don't have any experience yet.
         </Typography>
         :
-        jobList.map(mockItem => (
+        jobList.map(job => (
           <Card
-            key={mockItem.company}
+            key={job.company}
             variant="outlined"
             className={classes.card}
           >
             <CardContent className={classes.cardContent}>
               <Typography component="h5" variant="h6" className={classes.cardTitle}>
-                {mockItem.jobTitle}, {mockItem.company}
+                {job.jobTitle}, {job.company}
               </Typography>
               <Typography variant="subtitle1" color="textSecondary">
-                {mockItem.startDate} ~ {mockItem.isCurrentJob? `Present`: mockItem.endDate}
+                {getDateInFormat(job.startDate)} - {job.isCurrent? "Present": job.endDate}
               </Typography>
               <Typography variant="body1">
-                {mockItem.jobDescription}
+                {job.jobDesc}
               </Typography>
             </CardContent>
             <CardMedia
               className={classes.cardImg}
-              image="https://source.unsplash.com/random/400x300"
+              image={job.companyLogo || "https://source.unsplash.com/random/400x300"}
               title="Live from space album cover"
             />
           </Card>

@@ -163,7 +163,8 @@ function App(props) {
             }
             { (!isEditing && !!personalForm.name.value) &&
               <ProfileView
-                {...mockData}
+                personalForm={personalForm}
+                jobList={jobList}
                 onClickStartEdit={handleClickStartEdit}
               />
             }
