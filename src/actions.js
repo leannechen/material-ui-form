@@ -1,9 +1,7 @@
 // Personal Form
-export const changeInputValue = ({ formName, fieldName, value }) => ({
+export const changeInputValue = (payload) => ({
+  ...payload,
   type: 'CHANGE_INPUT_VALUE',
-  formName,
-  fieldName,
-  value,
 });
 
 export const changeDatePickerValue = (payload) => ({
