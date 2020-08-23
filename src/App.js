@@ -63,7 +63,7 @@ const mockData = {
 };
 
 function App(props) {
-  console.log(props);
+
   const classes = useStyles();
   const [ isEditing, setIsEditing ] = useState(false);
   const { store, changeInputValue, changeDatePickerValue, toggleIsCurrentJob, submitSingleJob, setFieldsInvalidMsg, submitOverallForm } = props;
