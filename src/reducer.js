@@ -269,7 +269,15 @@ const reducer = (state = initialState, action) => {
         ...state,
         jobForm: initialState.jobForm,
         jobList: newJobList,
-        editingJobId: 0,
+        editingJobId: initialState.editingJobId,
+      };
+    }
+    case 'RESET_JOB_FORM':
+    {
+      return {
+        ...state,
+        jobForm: initialState.jobForm,
+        editingJobId: initialState.editingJobId,
       };
     }
     case 'SET_FIELDS_INVALID_MSG':

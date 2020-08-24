@@ -22,6 +22,7 @@ import {
   setFieldsInvalidMsg,
   requestOverallForm,
   editSingleJob,
+  resetJobForm,
 } from './actions';
 import { db } from './services/firebase';
 
@@ -39,32 +40,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const mockData = {
-  name: "Jane Whites",
-  age: 28,
-  avatarImg: "https://source.unsplash.com/300x300/?person",
-  jobList: [
-    {
-      jobTitle: "Project Manager",
-      company: "Google",
-      companyLogo: "https://source.unsplash.com/random/400x300",
-      startDate: "2016/3/1",
-      endDate: "2019/5/26",
-      isCurrentJob: false,
-      jobDescription: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum ipsam obcaecati perferendis porro provident quam, velit voluptate voluptatibus."
-    },
-    {
-      jobTitle: "Data Analyst",
-      company: "Verizon Media",
-      companyLogo: "https://source.unsplash.com/random/400x300",
-      startDate: "2019/6/1",
-      endDate: "",
-      isCurrentJob: true,
-      jobDescription: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias amet architecto at dolor ea iste nam quo similique vitae voluptas? Eum ipsam obcaecati perferendis porro provident quam, velit voluptate voluptatibus perferendis porro provident quam, velit voluptate voluptatibus."
-    }
-  ]
-};
-
 function App(props) {
 
   const classes = useStyles();
@@ -79,6 +54,7 @@ function App(props) {
     saveOverallForm,
     requestOverallForm,
     editSingleJob,
+    resetJobForm,
   } = props;
   const { personalForm, jobForm, jobList, editingJobId } = store;
 
@@ -191,6 +167,7 @@ function App(props) {
                 submitSingleJob={submitSingleJob}
                 setFieldsInvalidMsg={setFieldsInvalidMsg}
                 saveOverallForm={saveOverallForm}
+                resetJobForm={resetJobForm}
               />
             }
           </Paper>
@@ -214,6 +191,7 @@ const mapDispatchToProps = dispatch => ({
   saveOverallForm: payload => dispatch(saveOverallForm(payload)),
   requestOverallForm: payload => dispatch(requestOverallForm(payload)),
   editSingleJob: payload => dispatch(editSingleJob(payload)),
+  resetJobForm: payload => dispatch(resetJobForm(payload)),
 });
 
 export default connect(

@@ -25,6 +25,11 @@ export const submitSingleJob = (payload) => ({
   type: 'SUBMIT_SINGLE_JOB',
 });
 
+export const resetJobForm = (payload) => ({
+  ...payload,
+  type: 'RESET_JOB_FORM',
+});
+
 export const setFieldsInvalidMsg = (payload) => ({
   ...payload,
   type: 'SET_FIELDS_INVALID_MSG',

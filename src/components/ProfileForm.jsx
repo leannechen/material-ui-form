@@ -93,6 +93,7 @@ function ProfileForm(props) {
     setFieldsInvalidMsg,
     saveOverallForm,
     editSingleJob,
+    resetJobForm,
   } = props;
   const [ isShowDialog, setIsShowDialog ] = useState(false);
 
@@ -165,6 +166,7 @@ function ProfileForm(props) {
 
   const handleCloseDialog = () => {
     setIsShowDialog(false);
+    resetJobForm();
   };
 
   return (
