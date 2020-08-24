@@ -82,7 +82,18 @@ const useStyles = makeStyles((theme) => ({
 
 function ProfileForm(props) {
   const classes = useStyles();
-  const { personalForm, jobList, jobForm, changeInputValue, changeDatePickerValue, toggleIsCurrentJob, submitSingleJob, setFieldsInvalidMsg, saveOverallForm } = props;
+  const {
+    personalForm,
+    jobList,
+    jobForm,
+    changeInputValue,
+    changeDatePickerValue,
+    toggleIsCurrentJob,
+    submitSingleJob,
+    setFieldsInvalidMsg,
+    saveOverallForm,
+    editSingleJob,
+  } = props;
   const [ isShowDialog, setIsShowDialog ] = useState(false);
 
   const handleInputChange = (fieldName, formName) => (e) => {
@@ -140,6 +151,12 @@ function ProfileForm(props) {
     } else {
       saveOverallForm();
     }
+  };
+
+  const handleEditJob = jobId => () => {
+    setIsShowDialog(true);
+    // set current job to jobForm
+    editSingleJob({ jobId });
   };
 
   const handleOpenDialog = () => {
@@ -203,7 +220,7 @@ function ProfileForm(props) {
               </Typography>
               :
               jobList.map(job => (
-                <Card key={job.company} className={classes.card}>
+                <Card key={job.id} className={classes.card}>
                   <CardContent className={classes.cardContent}>
                     <table>
                       <tbody>
@@ -253,7 +270,7 @@ function ProfileForm(props) {
                       color="primary"
                       aria-label="edit the job"
                       className={classes.cardBtn}
-                      onClick={() => {}}
+                      onClick={handleEditJob(job.id)}
                     >
                       <EditIcon />
                     </IconButton>

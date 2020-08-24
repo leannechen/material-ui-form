@@ -89,6 +89,7 @@ const initialState = {
       touched: false,
     },
   },
+  editingJobId: 0,
   jobList: [],
   /*
       {
@@ -215,27 +216,60 @@ const reducer = (state = initialState, action) => {
         }
       };
     }
+    case 'EDIT_SINGLE_JOB':
+    {
+      const { jobId } = action;
+      const { jobList, jobForm } = state;
+      const targetJob = jobList.find(job => job.id === jobId);
+
+      const newJobForm = (targetJob === undefined)?
+        initialState.jobForm
+        :
+        Object.keys(jobForm)
+          .reduce((acc, fieldName) => {
+            return {
+              ...acc,
+              [fieldName]: {
+                ...jobForm[fieldName],
+                value: targetJob[fieldName],
+              }
+            }
+          }, {});
+
+      return {
+        ...state,
+        jobForm: newJobForm,
+        editingJobId: jobId,
+      };
+    }
     case 'SUBMIT_SINGLE_JOB':
     {
-      // const { jobId } = action; // todo: create ID for each job
-      // 新增
-      // 編輯
-      const newJob = Object.keys(state.jobForm)
+      const { editingJobId, jobForm, jobList } = state;
+      const newJob = Object.keys(jobForm)
         .filter(fieldName => fieldName !== "companyLogo")
         .reduce((accu, fieldName) => {
           return {
             ...accu,
-            [fieldName]: state.jobForm[fieldName].value,
+            [fieldName]: jobForm[fieldName].value,
           }
         }, {});
+      const isExistingJob = (editingJobId !== 0);
+      const newJobList = isExistingJob ?
+        jobList.map(job => (job.id === editingJobId)? { ...newJob, id: job.id }: job)
+        :
+        [
+          ...jobList,
+          {
+            ...newJob,
+            id: new Date().getTime(),
+          },
+        ];
 
       return {
         ...state,
         jobForm: initialState.jobForm,
-        jobList: [
-          ...state.jobList,
-          newJob,
-        ]
+        jobList: newJobList,
+        editingJobId: 0,
       };
     }
     case 'SET_FIELDS_INVALID_MSG':

@@ -21,6 +21,7 @@ import {
   saveOverallForm,
   setFieldsInvalidMsg,
   requestOverallForm,
+  editSingleJob,
 } from './actions';
 import { db } from './services/firebase';
 
@@ -68,8 +69,18 @@ function App(props) {
 
   const classes = useStyles();
   const [ isEditing, setIsEditing ] = useState(false);
-  const { store, changeInputValue, changeDatePickerValue, toggleIsCurrentJob, submitSingleJob, setFieldsInvalidMsg, saveOverallForm, requestOverallForm } = props;
-  const { personalForm, jobForm, jobList } = store;
+  const {
+    store,
+    changeInputValue,
+    changeDatePickerValue,
+    toggleIsCurrentJob,
+    submitSingleJob,
+    setFieldsInvalidMsg,
+    saveOverallForm,
+    requestOverallForm,
+    editSingleJob,
+  } = props;
+  const { personalForm, jobForm, jobList, editingJobId } = store;
 
   useEffect(() => {
     const firebaseDataId = localStorage.getItem('glints-form');
@@ -172,9 +183,11 @@ function App(props) {
                 personalForm={personalForm}
                 jobList={jobList}
                 jobForm={jobForm}
+                editingJobId={editingJobId}
                 changeInputValue={changeInputValue}
                 changeDatePickerValue={changeDatePickerValue}
                 toggleIsCurrentJob={toggleIsCurrentJob}
+                editSingleJob={editSingleJob}
                 submitSingleJob={submitSingleJob}
                 setFieldsInvalidMsg={setFieldsInvalidMsg}
                 saveOverallForm={saveOverallForm}
@@ -188,9 +201,6 @@ function App(props) {
 }
 
 const mapStateToProps = state => ({
-  // todos: getVisibleTodos(state.todos, state.visibilityFilter),
-  // name: state.name,
-  // age: state.age,
   store: state,
 });
 
@@ -203,6 +213,7 @@ const mapDispatchToProps = dispatch => ({
   setFieldsInvalidMsg: payload => dispatch(setFieldsInvalidMsg(payload)),
   saveOverallForm: payload => dispatch(saveOverallForm(payload)),
   requestOverallForm: payload => dispatch(requestOverallForm(payload)),
+  editSingleJob: payload => dispatch(editSingleJob(payload)),
 });
 
 export default connect(
