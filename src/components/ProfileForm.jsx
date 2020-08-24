@@ -4,7 +4,12 @@ import {
   Typography,
   Card,
   CardContent,
-  CardMedia, TextField, Button, CardActions, IconButton,
+  CardMedia,
+  TextField,
+  Button,
+  CardActions,
+  IconButton,
+  Avatar,
 } from '@material-ui/core';
 import AddIcon from "@material-ui/icons/Add";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -91,7 +96,7 @@ function ProfileForm(props) {
     toggleIsCurrentJob,
     submitSingleJob,
     setFieldsInvalidMsg,
-    saveOverallForm,
+    onSaveOverallForm,
     editSingleJob,
     resetJobForm,
     deleteSingleJob,
@@ -127,7 +132,7 @@ function ProfileForm(props) {
   const handleSubmitForm = () => {
 
     const validatedFields = Object.keys(personalForm)
-      .filter(fieldName => fieldName !== "avatarImg") // FIXME: avatarImg
+      // .filter(fieldName => fieldName !== "avatarImg") // FIXME: avatarImg
       .reduce((accu, fieldName) => {
 
         const invalidMsg = validator({
@@ -151,7 +156,7 @@ function ProfileForm(props) {
     if(isAnyFieldInvalid) {
       setFieldsInvalidMsg({ validatedFields });
     } else {
-      saveOverallForm();
+      onSaveOverallForm();
     }
   };
 

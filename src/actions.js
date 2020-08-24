@@ -61,22 +61,37 @@ export const saveOverallForm = () => {
       jobList,
     };
 
-    // todo: turn isPosting on
-    return db.collection("profiles")
-      .add(allData)
-      .then(function(docRef) {
-        console.log("Document written with ID: ", docRef.id);
-        localStorage.setItem('glints-form', docRef.id);
-      })
-      .catch(function(error) {
-        console.error("Error adding document: ", error);
-      });
+    // todo: use id from store
+    const firebaseDataId = localStorage.getItem('glints-form');
+    if(firebaseDataId) {
+      const profileDoc = db.collection("profiles").doc(firebaseDataId);
+      return profileDoc
+        .update(allData)
+        .then(function(docRef) {
+          alert('Updated successfully!');
+        })
+        .catch(function(error) {
+          console.error("Error adding document: ", error);
+        });
+    } else {
+      // todo: turn isPosting on
+      const collection = db.collection("profiles");
+      return collection
+        .add(allData)
+        .then(function(docRef) {
+          console.log("Document written with ID: ", docRef.id);
+          localStorage.setItem('glints-form', docRef.id);
+          alert('Profile created!');
+        })
+        .catch(function(error) {
+          console.error("Error adding document: ", error);
+        });
+    }
 
   }
 };
 
 export const requestOverallForm = (firebaseDataId) => {
-  console.log(firebaseDataId);
 
   return (dispatch, getState) => {
     return db.collection("profiles")
@@ -86,8 +101,6 @@ export const requestOverallForm = (firebaseDataId) => {
         const response = doc.data();
         if(typeof response === "object") {
           dispatch(rehydrateOverallData(response));
-        } else {
-         // back to welcome view
         }
       })
   }

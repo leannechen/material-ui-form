@@ -65,10 +65,16 @@ function App(props) {
     if(firebaseDataId) {
       requestOverallForm(firebaseDataId);
     }
-  }, []);
+  }, [requestOverallForm]);
 
   const handleClickStartEdit = () => {
     setIsEditing(true);
+  };
+
+  const handleSaveOverallForm = () => {
+    saveOverallForm().then(() => {
+      setIsEditing(false);
+    })
   };
 
   const devAddData = () => {
@@ -168,7 +174,7 @@ function App(props) {
                 editSingleJob={editSingleJob}
                 submitSingleJob={submitSingleJob}
                 setFieldsInvalidMsg={setFieldsInvalidMsg}
-                saveOverallForm={saveOverallForm}
+                onSaveOverallForm={handleSaveOverallForm}
                 resetJobForm={resetJobForm}
                 deleteSingleJob={deleteSingleJob}
               />

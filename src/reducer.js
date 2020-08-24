@@ -23,7 +23,7 @@ const initialState = {
       touched: false,
     },
     avatarImg: {
-      value: "",
+      value: "https://source.unsplash.com/random/200x200",
       validateRule: {
         minLength: 1,
         maxLength: 500,
@@ -55,7 +55,7 @@ const initialState = {
       touched: false,
     },
     companyLogo: {
-      value: "",
+      value: "https://source.unsplash.com/random/400x300",
       validateRule: {
         minLength: 1,
         maxLength: 200,
@@ -257,7 +257,7 @@ const reducer = (state = initialState, action) => {
     {
       const { editingJobId, jobForm, jobList } = state;
       const newJob = Object.keys(jobForm)
-        .filter(fieldName => fieldName !== "companyLogo")
+        // .filter(fieldName => fieldName !== "companyLogo")
         .reduce((accu, fieldName) => {
           return {
             ...accu,
