@@ -25,7 +25,7 @@ import {
   resetJobForm,
   deleteSingleJob,
 } from './actions';
-import { db } from './services/firebase';
+import { db, storageRef } from './services/firebase';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -119,6 +119,15 @@ function App(props) {
     })
   };
 
+  const devStorage = () => {
+    // console.log(storageRef.child('seaotter-2.jpeg')) // Reference
+    // console.log(storageRef.child('avatars/seaotter-1.jpeg')) // Reference
+    const otter1Ref = storageRef.child('avatars/seaotter-1.jpeg');
+    console.log(otter1Ref.fullPath) // avatars/seaotter-1.jpeg
+    console.log(otter1Ref.name) // seaotter-1.jpeg
+    console.log(otter1Ref.bucket) // glints-fc0aa.appspot.com
+  };
+
   const renderWelcomeContent = () => (
     <div className={classes.welcomeContent}>
       <Typography variant="body1" gutterBottom align="center" className={classes.welcomeText}>
@@ -147,10 +156,11 @@ function App(props) {
         <Box paddingY={5} paddingX={4} clone>
           <Paper className={classes.paper}>
             {/* fordev */}
-            <button onClick={() => { setIsEditing(isEditing => !isEditing); }}>Toggle</button>
-            <button onClick={devAddData}>Add data to Firebase</button>
-            <button onClick={devGetData}>Get data from Firebase</button>
-            <button onClick={() => { saveOverallForm() }}>mock SAVE</button>
+            {/*<button onClick={() => { setIsEditing(isEditing => !isEditing); }}>Toggle</button>*/}
+            {/*<button onClick={devAddData}>Add data to Firebase</button>*/}
+            {/*<button onClick={devGetData}>Get data from Firebase</button>*/}
+            {/*<button onClick={() => { saveOverallForm() }}>mock SAVE</button>*/}
+            <button onClick={devStorage}>Check Storage</button>
             {/* todo: 判斷是否有profile */}
             { (!isEditing && !personalForm.name.value) &&
               renderWelcomeContent()

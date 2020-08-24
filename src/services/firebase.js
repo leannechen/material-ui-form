@@ -1,6 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/analytics';
 import 'firebase/firestore';
+import 'firebase/storage';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBUi0u5mVd1uG-idaAXJ8RceIcnj9fTQeI",
@@ -18,9 +19,12 @@ firebase.analytics();
 
 const db = firebase.firestore();
 console.log(db); // ensures db is alive
+const storageRef = firebase.storage().ref();
+console.log(storageRef)
 
 export {
   db,
+  storageRef,
 };
 
 

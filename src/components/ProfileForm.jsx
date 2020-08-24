@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Typography,
@@ -10,10 +10,12 @@ import {
   CardActions,
   IconButton,
   Avatar,
+  CircularProgress,
 } from '@material-ui/core';
 import AddIcon from "@material-ui/icons/Add";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
+import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 import JobDialog from "./JobDialog";
 import validator from "../utils/validator";
 import { getDateInFormat } from "../utils/date";
@@ -25,6 +27,21 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       width: `90%`,
     },
+  },
+  avatarContainer: {
+    display: `flex`,
+    justifyContent: `center`,
+    marginBottom: theme.spacing(2),
+  },
+  avatar: {
+    width: `100px`,
+    height: `100px`,
+  },
+  avatarUploadBtn: {
+    alignSelf: `flex-end`,
+  },
+  uploadSpinner: {
+    alignSelf: `flex-end`,
   },
   heading: {
     fontWeight: `bold`,
@@ -102,6 +119,8 @@ function ProfileForm(props) {
     deleteSingleJob,
   } = props;
   const [ isShowDialog, setIsShowDialog ] = useState(false);
+  const [ isUploading, setIsUploading ] = useState(false);
+  const avatarInputEl = useRef(null);
 
   const handleInputChange = (fieldName, formName) => (e) => {
     changeInputValue({
@@ -179,10 +198,60 @@ function ProfileForm(props) {
     resetJobForm();
   };
 
+  const handleUploadClick = () => {
+    avatarInputEl.current.click();
+  };
+
+  const handleFileSelect = event => {
+    // const setImgUrl = this.setImgUrl;
+    const { files } = event.target;
+    console.log(files[0]); // File
+    const reader = new FileReader();
+    reader.onload = function () {
+      // setImgUrl(reader.result);
+      console.log(reader.result); // base64
+    };
+
+    if (files[0]) {
+      // this.setState({
+      //   isShowImgCropper: true,
+      //   imgOriginalFile: input.files[0],
+      // });
+      reader.readAsDataURL(files[0]); // base64
+    }
+  };
+
   return (
     <div>
       <form className={classes.formContainer}>
         <fieldset className={classes.fieldset}>
+          <div className={classes.avatarContainer}>
+            <Avatar alt={personalForm.name.value} src={personalForm.avatarImg.value} className={classes.avatar}/>
+            {
+              isUploading ?
+                <CircularProgress
+                  color="secondary"
+                  size={30}
+                  className={classes.uploadSpinner}
+                /> :
+                <IconButton
+                  color="secondary"
+                  aria-label="upload your avatar"
+                  className={classes.avatarUploadBtn}
+                  disabled={isUploading}
+                  onClick={handleUploadClick}
+                >
+                  <PhotoCameraIcon />
+                </IconButton>
+            }
+            <input
+              type="file"
+              style={{ display: 'none' }}
+              ref={avatarInputEl}
+              onChange={handleFileSelect}
+              accept="image/*"
+            />
+          </div>
           <Typography variant="h5" component="h3" className={classes.heading} gutterBottom>
             Personal Information
           </Typography>
