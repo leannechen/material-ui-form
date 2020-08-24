@@ -55,6 +55,11 @@ export const setLogoSrc = (payload) => ({
   type: 'SET_LOGO_SRC',
 });
 
+export const setFirebaseDataId = (payload) => ({
+  ...payload,
+  type: 'SET_FIREBASE_DATA_ID',
+});
+
 
 export const saveOverallForm = () => {
 
@@ -88,8 +93,8 @@ export const saveOverallForm = () => {
       return collection
         .add(allData)
         .then(function(docRef) {
-          console.log("Document written with ID: ", docRef.id);
           localStorage.setItem('glints-form', docRef.id);
+          dispatch(setFirebaseDataId({ firebaseDataId: docRef.id }));
           alert('Profile created!');
         })
         .catch(function(error) {

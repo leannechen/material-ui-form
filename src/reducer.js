@@ -339,6 +339,14 @@ const reducer = (state = initialState, action) => {
         }
       };
     }
+    case 'SET_FIREBASE_DATA_ID':
+    {
+      const { firebaseDataId } = action;
+      return {
+        ...state,
+        firebaseDataId,
+      };
+    }
     default:
       return state
   }
