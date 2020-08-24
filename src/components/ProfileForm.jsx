@@ -153,7 +153,6 @@ function ProfileForm(props) {
   const handleSubmitForm = () => {
 
     const validatedFields = Object.keys(personalForm)
-      // .filter(fieldName => fieldName !== "avatarImg") // FIXME: avatarImg
       .reduce((accu, fieldName) => {
 
         const invalidMsg = validator({

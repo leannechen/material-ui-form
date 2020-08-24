@@ -88,9 +88,8 @@ function JobDialog(props) {
     fileInputEl.current.click();
   };
 
-  // todo: Object.keys(jobForm) except "isCurrent", "companyLogo"
   const isSubmitBtnEnabled = Object.keys(jobForm)
-      .filter(fieldName => fieldName !== "isCurrent" && fieldName !== "companyLogo")
+      .filter(fieldName => fieldName !== "isCurrent")
       .every(fieldName => {
         const isCorrectValue = (jobForm[fieldName].value && !jobForm[fieldName].invalidMsg);
         return (fieldName === "endDate")?
@@ -140,7 +139,7 @@ function JobDialog(props) {
           />
           <div className={classes.uploadContainer}>
             <Typography gutterBottom className={classes.uploadLabel}>
-              Company Logo
+              Company Logo *
             </Typography>
             <div>
               <Button

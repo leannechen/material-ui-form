@@ -243,7 +243,6 @@ const reducer = (state = initialState, action) => {
     {
       const { editingJobId, jobForm, jobList } = state;
       const newJob = Object.keys(jobForm)
-        // .filter(fieldName => fieldName !== "companyLogo")
         .reduce((accu, fieldName) => {
           return {
             ...accu,
