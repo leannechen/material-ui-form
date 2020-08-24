@@ -318,6 +318,7 @@ const reducer = (state = initialState, action) => {
             ...state.personalForm.avatarImg,
             value: url,
             touched: true,
+            invalidMsg: "",
           }
         }
       };
@@ -333,6 +334,7 @@ const reducer = (state = initialState, action) => {
             ...state.jobForm.companyLogo,
             value: url,
             touched: true,
+            invalidMsg: "",
           }
         }
       };
