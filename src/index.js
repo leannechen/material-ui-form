@@ -11,11 +11,12 @@ import 'fontsource-roboto';
 import App from './App';
 import './services/firebase';
 
+const middlewares = (process.env.NODE_ENV === "development")? [thunk, logger]: [thunk];
+
 const store = createStore(
   rootReducer,
-  applyMiddleware(thunk, logger)
+  applyMiddleware(...middlewares)
 );
-
 
 ReactDOM.render(
   <Provider store={store}>

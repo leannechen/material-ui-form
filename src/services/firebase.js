@@ -18,9 +18,7 @@ firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
 const db = firebase.firestore();
-console.log(db); // ensures db is alive
 const storageRef = firebase.storage().ref();
-console.log(storageRef)
 
 export {
   db,

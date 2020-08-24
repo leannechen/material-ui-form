@@ -215,7 +215,7 @@ function ProfileForm(props) {
   const handleFileSelect = event => {
     // const setImgUrl = this.setImgUrl;
     const { files } = event.target;
-    console.log(files[0]); // File
+    // console.log(files[0]); // File
     if(files[0]) {
       uploadAvatar(files[0]);
     }
@@ -236,7 +236,6 @@ function ProfileForm(props) {
 
   const handleLogoSelect = event => {
     const { files } = event.target;
-    console.log(files[0]); // File
     if(files[0]) {
       uploadLogo(files[0]);
     }
