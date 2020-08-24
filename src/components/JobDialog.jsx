@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Typography,
@@ -72,7 +72,21 @@ const useStyles = makeStyles((theme) => ({
 function JobDialog(props) {
 
   const classes = useStyles();
-  const { isShowDialog, onCloseDialog, onOpenDialog, jobForm, onInputChange, onDatePickerChange, onToggleIsCurrentJob, onSubmitSingleJob } = props;
+  const {
+    isShowDialog,
+    onCloseDialog,
+    jobForm,
+    onInputChange,
+    onDatePickerChange,
+    onToggleIsCurrentJob,
+    onSubmitSingleJob,
+    onLogoSelect
+  } = props;
+  const fileInputEl = useRef(null);
+
+  const handleUploadClick = () => {
+    fileInputEl.current.click();
+  };
 
   // todo: Object.keys(jobForm) except "isCurrent", "companyLogo"
   const isSubmitBtnEnabled = Object.keys(jobForm)
@@ -132,17 +146,27 @@ function JobDialog(props) {
               <Button
                 variant="contained"
                 color="secondary"
+                aria-label="Upload company logo"
                 startIcon={<AttachFileIcon />}
-                onClick={onOpenDialog}
+                onClick={handleUploadClick}
               >
                 Upload
               </Button>
+              <input
+                type="file"
+                style={{ display: 'none' }}
+                ref={fileInputEl}
+                onChange={onLogoSelect}
+                accept="image/*"
+              />
               <div className={classes.uploadPreviewContainer}>
-                <img
-                  src="https://source.unsplash.com/random/200x200"
-                  alt={jobForm.company.value}
-                  className={classes.uploadPreviewImg}
-                />
+                { jobForm.companyLogo.value &&
+                  <img
+                    src={jobForm.companyLogo.value}
+                    alt={jobForm.company.value}
+                    className={classes.uploadPreviewImg}
+                  />
+                }
               </div>
             </div>
           </div>

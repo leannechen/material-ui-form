@@ -25,6 +25,7 @@ import {
   resetJobForm,
   deleteSingleJob,
   uploadAvatar,
+  uploadLogo,
 } from './actions';
 import { db, storageRef } from './services/firebase';
 
@@ -59,6 +60,7 @@ function App(props) {
     resetJobForm,
     deleteSingleJob,
     uploadAvatar,
+    uploadLogo,
   } = props;
   const { personalForm, jobForm, jobList, editingJobId } = store;
 
@@ -148,6 +150,7 @@ function App(props) {
                 resetJobForm={resetJobForm}
                 deleteSingleJob={deleteSingleJob}
                 uploadAvatar={uploadAvatar}
+                uploadLogo={uploadLogo}
               />
             }
           </Paper>
@@ -174,6 +177,7 @@ const mapDispatchToProps = dispatch => ({
   resetJobForm: payload => dispatch(resetJobForm(payload)),
   deleteSingleJob: payload => dispatch(deleteSingleJob(payload)),
   uploadAvatar: payload => dispatch(uploadAvatar(payload)),
+  uploadLogo: payload => dispatch(uploadLogo(payload)),
 });
 
 export default connect(

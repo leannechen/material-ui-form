@@ -323,6 +323,21 @@ const reducer = (state = initialState, action) => {
         }
       };
     }
+    case 'SET_LOGO_SRC':
+    {
+      const { url } = action;
+      return {
+        ...state,
+        jobForm: {
+          ...state.jobForm,
+          companyLogo: {
+            ...state.jobForm.companyLogo,
+            value: url,
+            touched: true,
+          }
+        }
+      };
+    }
     default:
       return state
   }

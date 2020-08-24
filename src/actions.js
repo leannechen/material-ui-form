@@ -48,7 +48,13 @@ export const rehydrateOverallData = (payload) => ({
 export const setAvatarSrc = (payload) => ({
   ...payload,
   type: 'SET_AVATAR_SRC',
-})
+});
+
+export const setLogoSrc = (payload) => ({
+  ...payload,
+  type: 'SET_LOGO_SRC',
+});
+
 
 export const saveOverallForm = () => {
 
@@ -127,6 +133,25 @@ export const uploadAvatar = (file) => {
           .then((url) => {
             console.log(url);
             dispatch(setAvatarSrc({ url }));
+          })
+      });
+  }
+};
+
+export const uploadLogo = (file) => {
+  return (dispatch) => {
+
+    const timestamp = new Date().getTime();
+    const logoRef = storageRef.child(`logos/${timestamp}.jpg`);
+    return logoRef
+      .put(file)
+      .then(function(snapshot) {
+        console.log('Uploaded a blob or file!');
+        console.log(snapshot);
+        snapshot.ref.getDownloadURL()
+          .then((url) => {
+            console.log(url);
+            dispatch(setLogoSrc({ url }));
           })
       });
   }

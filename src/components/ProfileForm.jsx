@@ -118,6 +118,7 @@ function ProfileForm(props) {
     resetJobForm,
     deleteSingleJob,
     uploadAvatar,
+    uploadLogo,
   } = props;
   const [ isShowDialog, setIsShowDialog ] = useState(false);
   const [ isUploading, setIsUploading ] = useState(false);
@@ -223,6 +224,14 @@ function ProfileForm(props) {
       // });
       // reader.readAsDataURL(files[0]); // base64
     // }
+  };
+
+  const handleLogoSelect = event => {
+    const { files } = event.target;
+    console.log(files[0]); // File
+    if(files[0]) {
+      uploadLogo(files[0]);
+    }
   };
 
   return (
@@ -388,6 +397,7 @@ function ProfileForm(props) {
         onSubmitSingleJob={handleSubmitJob}
         onOpenDialog={handleOpenDialog}
         onCloseDialog={handleCloseDialog}
+        onLogoSelect={handleLogoSelect}
       />
     </div>
   )
