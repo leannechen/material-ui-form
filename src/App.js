@@ -23,6 +23,7 @@ import {
   requestOverallForm,
   editSingleJob,
   resetJobForm,
+  deleteSingleJob,
 } from './actions';
 import { db } from './services/firebase';
 
@@ -55,6 +56,7 @@ function App(props) {
     requestOverallForm,
     editSingleJob,
     resetJobForm,
+    deleteSingleJob,
   } = props;
   const { personalForm, jobForm, jobList, editingJobId } = store;
 
@@ -168,6 +170,7 @@ function App(props) {
                 setFieldsInvalidMsg={setFieldsInvalidMsg}
                 saveOverallForm={saveOverallForm}
                 resetJobForm={resetJobForm}
+                deleteSingleJob={deleteSingleJob}
               />
             }
           </Paper>
@@ -192,6 +195,7 @@ const mapDispatchToProps = dispatch => ({
   requestOverallForm: payload => dispatch(requestOverallForm(payload)),
   editSingleJob: payload => dispatch(editSingleJob(payload)),
   resetJobForm: payload => dispatch(resetJobForm(payload)),
+  deleteSingleJob: payload => dispatch(deleteSingleJob(payload)),
 });
 
 export default connect(

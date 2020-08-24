@@ -242,6 +242,17 @@ const reducer = (state = initialState, action) => {
         editingJobId: jobId,
       };
     }
+    case 'DELETE_SINGLE_JOB':
+    {
+      const { jobId } = action;
+      const { jobList } = state;
+      const updatedJobList = jobList.filter(job => job.id !== jobId);
+
+      return {
+        ...state,
+        jobList: updatedJobList,
+      };
+    }
     case 'SUBMIT_SINGLE_JOB':
     {
       const { editingJobId, jobForm, jobList } = state;

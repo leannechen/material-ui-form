@@ -94,6 +94,7 @@ function ProfileForm(props) {
     saveOverallForm,
     editSingleJob,
     resetJobForm,
+    deleteSingleJob,
   } = props;
   const [ isShowDialog, setIsShowDialog ] = useState(false);
 
@@ -158,6 +159,10 @@ function ProfileForm(props) {
     setIsShowDialog(true);
     // set current job to jobForm
     editSingleJob({ jobId });
+  };
+
+  const handleDeleteJob = jobId => () => {
+    deleteSingleJob({ jobId });
   };
 
   const handleOpenDialog = () => {
@@ -264,7 +269,7 @@ function ProfileForm(props) {
                       color="primary"
                       aria-label="delete the job"
                       className={classes.cardBtn}
-                      onClick={() => {}}
+                      onClick={handleDeleteJob(job.id)}
                     >
                       <DeleteIcon />
                     </IconButton>

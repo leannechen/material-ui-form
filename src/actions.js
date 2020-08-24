@@ -20,6 +20,11 @@ export const editSingleJob = (payload) => ({
   type: 'EDIT_SINGLE_JOB',
 });
 
+export const deleteSingleJob = (payload) => ({
+  ...payload,
+  type: 'DELETE_SINGLE_JOB',
+});
+
 export const submitSingleJob = (payload) => ({
   ...payload,
   type: 'SUBMIT_SINGLE_JOB',
