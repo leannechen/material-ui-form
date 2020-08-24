@@ -48,7 +48,7 @@ export const rehydrateOverallData = (payload) => ({
 export const saveOverallForm = () => {
 
   return (dispatch, getState) => {
-    const { jobList, personalForm } = getState();
+    const { jobList, personalForm, firebaseDataId } = getState();
     const personalData = Object.keys(personalForm)
       .reduce((acc, fieldName) => {
         return {
@@ -61,8 +61,6 @@ export const saveOverallForm = () => {
       jobList,
     };
 
-    // todo: use id from store
-    const firebaseDataId = localStorage.getItem('glints-form');
     if(firebaseDataId) {
       const profileDoc = db.collection("profiles").doc(firebaseDataId);
       return profileDoc
@@ -100,7 +98,10 @@ export const requestOverallForm = (firebaseDataId) => {
       .then(doc => {
         const response = doc.data();
         if(typeof response === "object") {
-          dispatch(rehydrateOverallData(response));
+          dispatch(rehydrateOverallData({
+            ...response,
+            firebaseDataId,
+          }));
         }
       })
   }

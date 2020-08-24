@@ -1,6 +1,7 @@
 import validator from './utils/validator';
 
 const initialState = {
+  firebaseDataId: "",
   personalForm: {
     name: {
       value: "",
@@ -303,7 +304,7 @@ const reducer = (state = initialState, action) => {
     }
     case 'REHYDRATE_OVERALL_DATA':
     {
-      const { jobList } = action;
+      const { jobList, firebaseDataId } = action;
       const newPersonalForm = Object.keys(state.personalForm)
         .reduce((acc, fieldName) => {
           return {
@@ -317,6 +318,7 @@ const reducer = (state = initialState, action) => {
 
       return {
         ...state,
+        firebaseDataId,
         personalForm: newPersonalForm,
         jobList,
       }
