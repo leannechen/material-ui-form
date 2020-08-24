@@ -29,16 +29,25 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   avatarContainer: {
-    display: `flex`,
-    justifyContent: `center`,
     marginBottom: theme.spacing(2),
   },
+  avatarInner: {
+    position: `relative`,
+    textAlign: `center`,
+  },
   avatar: {
+    display: `inline-block`,
     width: `100px`,
     height: `100px`,
   },
   avatarUploadBtn: {
-    alignSelf: `flex-end`,
+    position: `absolute`,
+    bottom: 0,
+  },
+  errorMsg: {
+    textAlign: `center`,
+    fontSize: `.875rem`,
+    color: theme.palette.secondary.light,
   },
   uploadSpinner: {
     alignSelf: `flex-end`,
@@ -238,35 +247,40 @@ function ProfileForm(props) {
       <form className={classes.formContainer}>
         <fieldset className={classes.fieldset}>
           <div className={classes.avatarContainer}>
-            <Avatar
-              alt={personalForm.name.value}
-              src={personalForm.avatarImg.value}
-              className={classes.avatar}
-            />
-            {
-              isUploading ?
-                <CircularProgress
-                  color="secondary"
-                  size={30}
-                  className={classes.uploadSpinner}
-                /> :
-                <IconButton
-                  color="secondary"
-                  aria-label="upload your avatar"
-                  className={classes.avatarUploadBtn}
-                  disabled={isUploading}
-                  onClick={handleUploadClick}
-                >
-                  <PhotoCameraIcon />
-                </IconButton>
-            }
-            <input
-              type="file"
-              style={{ display: 'none' }}
-              ref={avatarInputEl}
-              onChange={handleFileSelect}
-              accept="image/*"
-            />
+            <div className={classes.avatarInner}>
+              <Avatar
+                alt={personalForm.name.value}
+                src={personalForm.avatarImg.value}
+                className={classes.avatar}
+              />
+              {
+                isUploading ?
+                  <CircularProgress
+                    color="secondary"
+                    size={30}
+                    className={classes.uploadSpinner}
+                  /> :
+                  <IconButton
+                    color="secondary"
+                    aria-label="upload your avatar"
+                    className={classes.avatarUploadBtn}
+                    disabled={isUploading}
+                    onClick={handleUploadClick}
+                  >
+                    <PhotoCameraIcon />
+                  </IconButton>
+              }
+              <input
+                type="file"
+                style={{ display: 'none' }}
+                ref={avatarInputEl}
+                onChange={handleFileSelect}
+                accept="image/*"
+              />
+            </div>
+            <Typography variant="body1" className={classes.errorMsg} gutterBottom>
+              {personalForm.avatarImg.invalidMsg}
+            </Typography>
           </div>
           <Typography variant="h5" component="h3" className={classes.heading} gutterBottom>
             Personal Information
