@@ -238,15 +238,6 @@ const reducer = (state = initialState, action) => {
         ]
       };
     }
-    case 'SUBMIT_OVERALL_FORM':
-    {
-      // if all are valid, submit the form
-      // assemble form data
-
-      return {
-        ...state
-      }
-    }
     case 'SET_FIELDS_INVALID_MSG':
     {
       const { validatedFields } = action;
