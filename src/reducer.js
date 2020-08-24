@@ -309,7 +309,7 @@ const reducer = (state = initialState, action) => {
           return {
             ...acc,
             [fieldName]: {
-              ...state.personalForm,
+              ...state.personalForm[fieldName],
               value: action[fieldName],
             }
           }
