@@ -24,7 +24,7 @@ const initialState = {
       touched: false,
     },
     avatarImg: {
-      value: "https://source.unsplash.com/random/200x200",
+      value: "",
       validateRule: {
         minLength: 1,
         maxLength: 500,
@@ -56,7 +56,7 @@ const initialState = {
       touched: false,
     },
     companyLogo: {
-      value: "https://source.unsplash.com/random/400x300",
+      value: "",
       validateRule: {
         minLength: 1,
         maxLength: 200,

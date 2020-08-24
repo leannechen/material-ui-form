@@ -323,10 +323,10 @@ function ProfileForm(props) {
                         </tr>
                         <tr>
                           <th className={classes.jobTh}>Company Logo</th>
-                          <td className={classes.jobTd}>{job.companyLogo}
+                          <td className={classes.jobTd}>
                             <CardMedia
                               className={classes.cardImg}
-                              image="https://source.unsplash.com/random/400x300"
+                              image={job.companyLogo}
                               title={job.company}
                             />
                           </td>

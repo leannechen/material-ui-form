@@ -126,8 +126,8 @@ function ProfileView(props) {
             </CardContent>
             <CardMedia
               className={classes.cardImg}
-              image={job.companyLogo || "https://source.unsplash.com/random/400x300"}
-              title="Live from space album cover"
+              image={job.companyLogo}
+              title={job.company}
             />
           </Card>
         ))

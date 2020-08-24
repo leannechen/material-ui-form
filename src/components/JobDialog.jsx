@@ -50,13 +50,22 @@ const useStyles = makeStyles((theme) => ({
     margin: `auto`,
   },
   uploadContainer: {
-    display: `flex`,
     margin: `${theme.spacing(2)}px 0`,
-    alignItems: `center`,
   },
   uploadLabel: {
     marginRight: theme.spacing(1),
-    marginBottom: theme.spacing(0),
+    marginBottom: theme.spacing(1),
+  },
+  uploadPreviewContainer: {
+    width: `300px`,
+    maxWidth: `100%`,
+    marginTop: theme.spacing(2),
+    overflow: `hidden`,
+  },
+  uploadPreviewImg: {
+    objectFit: `contain`,
+    width: `100%`,
+    height: `100%`,
   },
 }));
 
@@ -119,14 +128,23 @@ function JobDialog(props) {
             <Typography gutterBottom className={classes.uploadLabel}>
               Company Logo
             </Typography>
-            <Button
-              variant="contained"
-              color="secondary"
-              startIcon={<AttachFileIcon />}
-              onClick={onOpenDialog}
-            >
-              Upload
-            </Button>
+            <div>
+              <Button
+                variant="contained"
+                color="secondary"
+                startIcon={<AttachFileIcon />}
+                onClick={onOpenDialog}
+              >
+                Upload
+              </Button>
+              <div className={classes.uploadPreviewContainer}>
+                <img
+                  src="https://source.unsplash.com/random/200x200"
+                  alt={jobForm.company.value}
+                  className={classes.uploadPreviewImg}
+                />
+              </div>
+            </div>
           </div>
           <KeyboardDatePicker
             className={classes.datePicker}
