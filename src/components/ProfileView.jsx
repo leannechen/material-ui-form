@@ -6,6 +6,7 @@ import {
   CardContent,
   CardMedia,
   Avatar,
+  Button,
 } from '@material-ui/core';
 import { getDateInFormat } from '../utils/date';
 
@@ -13,6 +14,10 @@ const useStyles = makeStyles((theme) => ({
   viewContainer: {
     margin: `auto`,
     width: `60%`,
+  },
+  topArea: {
+    textAlign: `right`,
+    marginBottom: theme.spacing(2),
   },
   avatar: {
     width: `100px`,
@@ -41,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: `center`,
     marginBottom: theme.spacing(1),
     padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
-    borderLeft: `3px solid ${theme.palette.primary.main}`,
+    borderLeft: `5px solid ${theme.palette.primary.main}`,
     borderRadius: 0,
   },
   cardTitle: {
@@ -60,11 +65,21 @@ const useStyles = makeStyles((theme) => ({
 
 function ProfileView(props) {
   const classes = useStyles();
-  const { personalForm, jobList } = props;
+  const { personalForm, jobList, onClickStartEdit } = props;
   const { name, age, avatarImg } = personalForm;
 
   return (
     <div className={classes.viewContainer}>
+      <div className={classes.topArea}>
+        <Button
+          color="primary"
+          variant="contained"
+          disableElevation
+          onClick={onClickStartEdit}
+        >
+          Edit
+        </Button>
+      </div>
       <Avatar alt={name.value} src={avatarImg.value} className={classes.avatar} />
       <Typography variant="h5" component="h3" className={classes.heading} gutterBottom>
         Personal Information
@@ -103,7 +118,7 @@ function ProfileView(props) {
                 {job.jobTitle}, {job.company}
               </Typography>
               <Typography variant="subtitle1" color="textSecondary">
-                {getDateInFormat(job.startDate)} - {job.isCurrent? "Present": job.endDate}
+                {getDateInFormat(job.startDate)} - {job.isCurrent? "Present": getDateInFormat(job.endDate)}
               </Typography>
               <Typography variant="body1">
                 {job.jobDesc}

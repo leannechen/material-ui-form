@@ -68,7 +68,7 @@ function App(props) {
   }, []);
 
   const handleClickStartEdit = () => {
-    setIsEditing(isEditing => !isEditing);
+    setIsEditing(true);
   };
 
   const devAddData = () => {
