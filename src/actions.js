@@ -127,11 +127,8 @@ export const uploadAvatar = (file) => {
     return avatarRef
       .put(file)
       .then(function(snapshot) {
-        console.log('Uploaded a blob or file!');
-        console.log(snapshot);
         snapshot.ref.getDownloadURL()
           .then((url) => {
-            console.log(url);
             dispatch(setAvatarSrc({ url }));
           })
       });
@@ -146,11 +143,8 @@ export const uploadLogo = (file) => {
     return logoRef
       .put(file)
       .then(function(snapshot) {
-        console.log('Uploaded a blob or file!');
-        console.log(snapshot);
         snapshot.ref.getDownloadURL()
           .then((url) => {
-            console.log(url);
             dispatch(setLogoSrc({ url }));
           })
       });

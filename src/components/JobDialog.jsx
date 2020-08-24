@@ -15,12 +15,6 @@ import AttachFileIcon from "@material-ui/icons/AttachFile";
 import { KeyboardDatePicker } from "@material-ui/pickers";
 
 const useStyles = makeStyles((theme) => ({
-  dialog: {
-    [theme.breakpoints.up('sm')]: {
-      // minWidth: `500px`,
-      // backgroundColor: `gold`,
-    },
-  },
   dialogContent: {
     paddingTop: theme.spacing(5),
     paddingBottom: theme.spacing(5),

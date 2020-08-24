@@ -27,14 +27,8 @@ import {
   uploadAvatar,
   uploadLogo,
 } from './actions';
-import { db, storageRef } from './services/firebase';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    // maxWidth: `600px`,
-  },
-  paper: {
-  },
   welcomeText: {
     marginBottom: theme.spacing(2),
   },
@@ -62,7 +56,7 @@ function App(props) {
     uploadAvatar,
     uploadLogo,
   } = props;
-  const { personalForm, jobForm, jobList, editingJobId } = store;
+  const { personalForm, jobForm, jobList, editingJobId, firebaseDataId } = store;
 
   useEffect(() => {
     const firebaseDataId = localStorage.getItem('glints-form');
@@ -79,15 +73,6 @@ function App(props) {
     saveOverallForm().then(() => {
       setIsEditing(false);
     })
-  };
-
-  const devStorage = () => {
-    // console.log(storageRef.child('seaotter-2.jpeg')) // Reference
-    // console.log(storageRef.child('avatars/seaotter-1.jpeg')) // Reference
-    const otter1Ref = storageRef.child('avatars/seaotter-1.jpeg');
-    console.log(otter1Ref.fullPath) // avatars/seaotter-1.jpeg
-    console.log(otter1Ref.name) // seaotter-1.jpeg
-    console.log(otter1Ref.bucket) // glints-fc0aa.appspot.com
   };
 
   const renderWelcomeContent = () => (
@@ -119,15 +104,10 @@ function App(props) {
           <Paper className={classes.paper}>
             {/* fordev */}
             {/*<button onClick={() => { setIsEditing(isEditing => !isEditing); }}>Toggle</button>*/}
-            {/*<button onClick={devAddData}>Add data to Firebase</button>*/}
-            {/*<button onClick={devGetData}>Get data from Firebase</button>*/}
-            {/*<button onClick={() => { saveOverallForm() }}>mock SAVE</button>*/}
-            <button onClick={devStorage}>Check Storage</button>
-            {/* todo: 判斷是否有profile */}
-            { (!isEditing && !personalForm.name.value) &&
+            { (!isEditing && !firebaseDataId) &&
               renderWelcomeContent()
             }
-            { (!isEditing && !!personalForm.name.value) &&
+            { (!isEditing && !!firebaseDataId) &&
               <ProfileView
                 personalForm={personalForm}
                 jobList={jobList}
@@ -165,7 +145,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  // toggleTodo: id => dispatch(toggleTodo(id)),
   changeInputValue: payload => dispatch(changeInputValue(payload)),
   changeDatePickerValue: payload => dispatch(changeDatePickerValue(payload)),
   toggleIsCurrentJob:  payload => dispatch(toggleIsCurrentJob(payload)),
