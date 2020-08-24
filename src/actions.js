@@ -1,4 +1,4 @@
-import { db } from './services/firebase';
+import { db, storageRef } from './services/firebase';
 
 export const changeInputValue = (payload) => ({
   ...payload,
@@ -44,6 +44,11 @@ export const rehydrateOverallData = (payload) => ({
   ...payload,
   type: 'REHYDRATE_OVERALL_DATA',
 });
+
+export const setAvatarSrc = (payload) => ({
+  ...payload,
+  type: 'SET_AVATAR_SRC',
+})
 
 export const saveOverallForm = () => {
 
@@ -106,4 +111,23 @@ export const requestOverallForm = (firebaseDataId) => {
       })
   }
 
+};
+
+export const uploadAvatar = (file) => {
+  return (dispatch) => {
+
+    const timestamp = new Date().getTime();
+    const avatarRef = storageRef.child(`avatars/${timestamp}.jpg`);
+    return avatarRef
+      .put(file)
+      .then(function(snapshot) {
+        console.log('Uploaded a blob or file!');
+        console.log(snapshot);
+        snapshot.ref.getDownloadURL()
+          .then((url) => {
+            console.log(url);
+            dispatch(setAvatarSrc({ url }));
+          })
+      });
+  }
 };

@@ -26,16 +26,3 @@ export {
   db,
   storageRef,
 };
-
-
-// db.collection("users").add({
-//   first: "Betty",
-//   last: "Moon",
-//   born: 1926
-// })
-//   .then(function(docRef) {
-//     console.log("Document written with ID: ", docRef.id);
-//   })
-//   .catch(function(error) {
-//     console.error("Error adding document: ", error);
-//   });

@@ -24,6 +24,7 @@ import {
   editSingleJob,
   resetJobForm,
   deleteSingleJob,
+  uploadAvatar,
 } from './actions';
 import { db, storageRef } from './services/firebase';
 
@@ -57,6 +58,7 @@ function App(props) {
     editSingleJob,
     resetJobForm,
     deleteSingleJob,
+    uploadAvatar,
   } = props;
   const { personalForm, jobForm, jobList, editingJobId } = store;
 
@@ -74,48 +76,6 @@ function App(props) {
   const handleSaveOverallForm = () => {
     saveOverallForm().then(() => {
       setIsEditing(false);
-    })
-  };
-
-  const devAddData = () => {
-    db.collection("profiles").add({
-      name: "Lennon",
-      age: 64,
-      avatarImg: "",
-      jobList: [
-        {
-          jobTitle: "Data Analyst 1",
-          company: "Apple",
-          companyLogo: "https://source.unsplash.com/random/400x300",
-          startDate: "2019/6/1",
-          endDate: "2019/12/31",
-          isCurrent: false,
-          jobDesc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias amet architecto at dolor ea iste nam quo similique vitae voluptas? Eum ipsam obcaecati perferendis porro provident quam, velit voluptate voluptatibus perferendis porro provident quam, velit voluptate voluptatibus."
-        },
-        {
-          jobTitle: "Data Analyst 2",
-          company: "BeeHappy",
-          companyLogo: "https://source.unsplash.com/random/400x300",
-          startDate: "2020/2/1",
-          endDate: "",
-          isCurrent: true,
-          jobDesc: "We are going to use axios to fetch data, but it is up to you to use another data fetching library or the native fetch API of the browser."
-        }
-      ]
-    })
-    .then(function(docRef) {
-      console.log("Document written with ID: ", docRef.id);
-    })
-    .catch(function(error) {
-      console.error("Error adding document: ", error);
-    });
-  };
-
-  const devGetData = () => {
-    // context api?
-    const ref = db.collection("profiles").doc("DC5p36PJ1qwTN77MJ3ul");
-    ref.get().then(doc => {
-      console.log(doc.data());
     })
   };
 
@@ -187,6 +147,7 @@ function App(props) {
                 onSaveOverallForm={handleSaveOverallForm}
                 resetJobForm={resetJobForm}
                 deleteSingleJob={deleteSingleJob}
+                uploadAvatar={uploadAvatar}
               />
             }
           </Paper>
@@ -212,6 +173,7 @@ const mapDispatchToProps = dispatch => ({
   editSingleJob: payload => dispatch(editSingleJob(payload)),
   resetJobForm: payload => dispatch(resetJobForm(payload)),
   deleteSingleJob: payload => dispatch(deleteSingleJob(payload)),
+  uploadAvatar: payload => dispatch(uploadAvatar(payload)),
 });
 
 export default connect(

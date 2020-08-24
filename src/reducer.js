@@ -107,21 +107,6 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'ADD_TODO':
-      return [
-        ...state,
-        {
-          id: action.id,
-          text: action.text,
-          completed: false
-        }
-      ];
-    case 'TOGGLE_TODO':
-      return state.map(todo =>
-        (todo.id === action.id)
-          ? {...todo, completed: !todo.completed}
-          : todo
-      );
     case 'CHANGE_INPUT_VALUE':
     {
       const { formName = "personalForm", fieldName, value } = action;
@@ -322,6 +307,21 @@ const reducer = (state = initialState, action) => {
         personalForm: newPersonalForm,
         jobList,
       }
+    }
+    case 'SET_AVATAR_SRC':
+    {
+      const { url } = action;
+      return {
+        ...state,
+        personalForm: {
+          ...state.personalForm,
+          avatarImg: {
+            ...state.personalForm.avatarImg,
+            value: url,
+            touched: true,
+          }
+        }
+      };
     }
     default:
       return state

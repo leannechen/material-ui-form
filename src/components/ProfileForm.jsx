@@ -117,6 +117,7 @@ function ProfileForm(props) {
     editSingleJob,
     resetJobForm,
     deleteSingleJob,
+    uploadAvatar,
   } = props;
   const [ isShowDialog, setIsShowDialog ] = useState(false);
   const [ isUploading, setIsUploading ] = useState(false);
@@ -206,19 +207,22 @@ function ProfileForm(props) {
     // const setImgUrl = this.setImgUrl;
     const { files } = event.target;
     console.log(files[0]); // File
-    const reader = new FileReader();
-    reader.onload = function () {
+    if(files[0]) {
+      uploadAvatar(files[0]);
+    }
+    // const reader = new FileReader();
+    // reader.onload = function () {
       // setImgUrl(reader.result);
-      console.log(reader.result); // base64
-    };
+      // console.log(reader.result); // base64
+    // };
 
-    if (files[0]) {
+    // if (files[0]) {
       // this.setState({
       //   isShowImgCropper: true,
       //   imgOriginalFile: input.files[0],
       // });
-      reader.readAsDataURL(files[0]); // base64
-    }
+      // reader.readAsDataURL(files[0]); // base64
+    // }
   };
 
   return (
@@ -226,7 +230,11 @@ function ProfileForm(props) {
       <form className={classes.formContainer}>
         <fieldset className={classes.fieldset}>
           <div className={classes.avatarContainer}>
-            <Avatar alt={personalForm.name.value} src={personalForm.avatarImg.value} className={classes.avatar}/>
+            <Avatar
+              alt={personalForm.name.value}
+              src={personalForm.avatarImg.value}
+              className={classes.avatar}
+            />
             {
               isUploading ?
                 <CircularProgress
